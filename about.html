@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>About</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Quicksand:500,600,700&display=swap"
+    rel="stylesheet" />
+
+  <!-- CSS Libraries -->
+  <!-- bootrap css link -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Stylesheet -->
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <!-- Nav Start -->
+    <div id="nav-placeholder"></div>
+    <!-- Nav End -->
+    <div class="container">
+      <div class="section-title">
+        <h2>About</h2>
+      </div>
+      <p>
+        <strong>The BMDS Lab</strong> is a multidisciplinary research group dedicated to advancing bioinformatics and
+        biomedical data science through novel artificial intelligence (AI), machine learning, and computational
+        approaches. Our core research areas include AI for drug design, precision medicine, biomedical image analysis,
+        conversational AI systems, generative models, and multi-objective optimization techniques tailored to complex
+        biological data problems.
+      </p>
+      <p>
+        We brings together researchers from diverse academic backgrounds, including biology, biotechnology, medical
+        sciences, computer science, mathematics, statistics, and game programming. This diversity fuels
+        interdisciplinary innovation and strengthens our ability to address complex challenges in biomedical research.
+      </p>
+      <p>
+        Our researchers have published their findings in top venues including <em>IEEE Computational Intelligence
+          Magazine</em>, <em>IEEE Transactions on Neural Networks and Learning Systems</em>, <em>PLOS Computational
+          Biology</em>, <em>Briefings in Bioinformatics</em>, <em>Frontiers in Pharmacology</em>, among others. Our lab
+        operates as an innovation hub by fostering collaborations with Brock faculty, external academics, government
+        scientists, and industrial partners to amplify research impact across disciplines.
+      </p>
+      <p>Our research projects and programs are supported by:</p>
+      <ul>
+        <li>Canada Research Chairs Program (CRC)</li>
+        <li>NSERC Discovery Grant Program</li>
+        <li>NRC Artificial Intelligence for Design Challenge Program</li>
+        <li>NRC Digital Health and Geospatial Analytics Program</li>
+        <li>Canada Foundation for Innovation - John R. Evans Leaders Fund (CFI-JELF)</li>
+        <li>Ontario Research Fund - Small Infrastructure Fund (ORF-SIF)</li>
+        <li>and other federal and provincial funding sources.</li>
+      </ul>
+
+      <section class="research-topic">
+        <h4>AI for Drug Design</h4>
+        <p>
+          Drug discovery is the process of finding useful compounds that have a therapeutic effect towards a health
+          condition. It aims to select molecules that satisfy multiple pharmacodynamic properties (e.g., specific
+          binding to a target) and pharmacokinetic properties (e.g., absorption, distribution, metabolism, excretion,
+          and toxicity), while ensuring efficacy and safety. This process is expensive, time-consuming, and with a high
+          degree of uncertainty regarding the likelihood of a drug's success. The chance of identifying one molecule
+          that fulfills all requirements, in a massive library and following sequential screening steps, is rather rare.
+          The search space is huge up to 10⁶⁰ and brutally enumerating each molecule is computational infeasible. On
+          average, it takes billions of dollars and more than 10 years to successfully have a drug reach the approval
+          stage. The recent rise of AI techniques has provided a promising opportunity to revolutionise the drug
+          discovery process.
+        </p>
+        <p>
+          At the BMDS Lab, new AI approaches have been developed to design drug candidates that simultaneously satisfy
+          multiple properties. For example, the deep evolutionary learning (DEL) approach published in [3,4] combines
+          the strengths of deep generative models and multi-objective evolutionary computing to design novel molecules
+          for cancer treatment. To optimise drug efficacy, combat drug resistance, and reduce side effects in cancer
+          therapy, we propose a two-birds-with-one-stone approach to design drugs that can target multiple drug targets.
+          Below shows a compound (generated using the Lab's multi-target drug design method) that can bind two targets
+          for breast cancer treatment.
+        </p>
+        <div class="image-block">
+          <img src="/img/about/compound.png" alt="Multi-target compound for breast cancer treatment" />
+        </div>
+        <p>
+          From the computing perspective, drug design is a multi-objective optimisation problem [1]. One particular task
+          is lead optimisation which aims at modifying a given lead molecule of interest such that the desired
+          properties can be improved and the unwanted properties minimised. Below demonstrates an example. The lead
+          compound (left) has favourable SAS (synthetic accessibility score) property, but poor solubility in water
+          (clogP) and drug-likeness (QED). After modification using BMDS' multi-objective reinforcement learning (MORL)
+          approach, the new compound (right) has all properties favourable.
+        </p>
+        <div class="image-block">
+          <img src="/img/about/optimized.png" alt="Optimised compound after MORL" />
+          </p>
+        </div>
+      </section>
+
+      <section class="research-topic">
+        <h4>Biomedical Image Analysis</h4>
+        <p>
+          From images captured under microscopes to images taken in filed trips, image processing and analytics play an
+          important role in scientific discovery. The BMDS Lab builds AI models for a variety of biomedical image
+          analysis tasks, such as object segmentation and image classification. In collaboration with the 8Trees Inc.,
+          an environmental organisation in Font Hill Ontario, AI models are being developed to identify and track
+          individual Massasauga rattlesnakes, an endangered species in South Ontario. Snake IDing is a challenging task
+          due to their high-similar skin patterns and flexible body shape. From the two snake pictures below, are you
+          able to tell whether they are from the same individual or two different ones? AI can tell.
+        </p>
+        <div class="image-block">
+          <img src="/img/about/sheshe.png" alt="AI-based identification task" />
+          </p>
+        </div>
+      </section>
+
+      <section class="research-topic">
+        <h4>Machine Learning</h4>
+        <p>
+          As an important pillar of AI, machine learning aims at building a parameterised model of our “world” of
+          interest, learning its parameters using training examples and experiences, and then generalising its
+          capability to unseen data. At the BMDS Lab, a variety of novel machine learning models have been devised to
+          tackle specific tasks, such as deep feature selection (DFS) for cis-regulatory element prediction and
+          characterisation, multi-class non-negative matrix factorisation for identifying shared pathways and
+          tumor-specific pathways in pan-cancer analysis, and multi-modal generative models for data integration.
+        </p>
+        <p>
+          The BMDS group builds foundation models that can do multiple tasks and conversational AI models that can
+          generate better responses given instructions. See below a demonstration.
+        </p>
+        <p><strong>Instruction:</strong> Write an e-mail to congratulate new Brock University admits and mention that
+          you are excited about meeting all of them in person.</p>
+        <p><strong>Text generated using BMDS' finetuned model:</strong></p>
+        <p class="blue-text">
+          Dear [Name],<br>
+          Congratulations on being admitted to Brock University! I am thrilled to hear that you have been accepted to
+          this prestigious institution and I am excited to meet you in person.<br>
+          Brock University is known for its high-quality education, research, and innovation, and I am sure that you
+          will have a rewarding and enriching experience during your time here.<br>
+          I would like to extend a warm welcome to you and wish you all the best in your studies. I am looking forward
+          to meeting you and getting to know you better.<br>
+          Once again, congratulations on your admission and I hope to see you soon.<br>
+          Best wishes,<br>
+          [Your Name]
+        </p>
+        <p><strong>Text generated using the original model:</strong></p>
+        <p class="red-text">
+          The Brock University Admissions Office will send you an e-mail with your Brock University student number and
+          instructions on how to access your Brock University student portal.<br>
+          You will be able to access your Brock University student portal to check your Brock University grades, Brock
+          University class schedule, Brock University student email, Brock University... [repeated contents]
+        </p>
+      </section>
+
+      <section class="research-topic">
+      <h4>Conclusion and Looking Forward</h4>
+      <p>
+        The BMDS Lab is a thriving group of excellent researchers conducting research in AI and bioinformatics. We always welcome potential students and visitors to join our group. For the betterment of our world, we look forward to creating new partnerships with academic, government, and industrial collaborators. Finally, funding and sponsorships to support our research will be highly appreciated.
+      </p>
+    </section>
+    
+      <section class="research-topic">
+        <h4>Selected Publications</h4>
+        <ol>
+          <li>
+            A Al-Jumaily, M. Mukaidaisi, A. Vu, A. Tchagang, Y. Li. Examining multi-objective deep reinforcement learning
+            frameworks for molecular design. Biosystems, 232:104989, 2023.
+          </li>
+          <li>
+            C Andress, K Kappel, ME Villena, M Cupperlovic-Culf, H Yan, Y Li. DAPTEV: Deep aptamer evolutionary modelling
+            for COVID-19 drug design. PLoS Computational Biology, 19(7):e1010774, 2023.
+          </li>
+          <li>
+            M Mukaidaisi, A Vu, K Grantham, A Tchagang, Y Li. Multi-objective drug design based on graph-fragment
+            molecular representation and deep evolutionary learning. Frontier in Pharmacology, 13:920747, 2022.
+          </li>
+          <li>
+            K Grantham, M Mukaidaisi, HK Ooi, MS Ghaemi, A Tchagang, Y Li. Deep evolutionary learning for molecular
+            design. IEEE Computational Intelligence Magazine, 17(2):14-28, 2022.
+          </li>
+          <li>
+            Y Li, Y Pan, Z Liu. Multi-class non-negative matrix factorization for comprehensive feature pattern
+            discovery. IEEE Transactions on Neural Networks and Learning Systems, 30(2):615-629, 2019.
+          </li>
+          <li>
+            Y Li, F Wu, A Ngom. A review on machine learning principles for multi-view biological data integration.
+            Briefings in Bioinformatics, 19(2):325-340, 2018.
+          </li>
+          <li>
+            Y Li, W Shi, W Wasserman. Genome-wide prediction of cis-regulatory regions using supervised deep learning
+            methods. BMC Bioinformatics, 19:202, 2018.
+          </li>
+        </ol>
+      </section>
+    </div>
+  </div>
+  <!-- Javascript -->
+  <script src="js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top" title="Back to Top">
+    <i class="bi bi-arrow-up"></i>
+  </a>
+  <!-- footer -->
+  <div id="footer-placeholder"></div>
+</body>
+
+</html>

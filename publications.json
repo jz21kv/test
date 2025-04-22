@@ -1,0 +1,220 @@
+{
+  "publications": [
+    {
+      "year": 2025,
+      "type": "Conference",
+      "title": "Exploration of chaos game representation and integrative deep learning approaches for whole-genome sequencing-based grapevine genetic testing",
+      "authors": "Andrew Vu, Brendan Park, Yifeng Li and Ping Liang",
+      "venue": "Great Lakes Bioinformatics Conference (GLBIO)",
+      "date": "May 2025, accepted",
+      "link": "#"
+    },
+    {
+      "year": 2025,
+      "type": "Conference",
+      "title": "Can we afford the perfect prompt? Balancing cost and accuracy with the economical prompting index",
+      "authors": "Tyler McDonald, Anthony Colosimo, Yifeng Li, Ali Emami",
+      "venue": "International Conference on Computational Linguistics (COLING)",
+      "date": "Jan. 2025, pp. 7075\u20137086",
+      "link": "https://doi.org/10.18653/v1/2024.acl-long.22"
+    },
+    {
+      "year": 2024,
+      "type": "Journal",
+      "title": "'Several birds with one stone': Exploring the potential of AI methods for multi-target drug design",
+      "authors": "Muhetaer Mukaidaisi, Madiha Ahmed, Karl Grantham, Aws Al-Jumaily, Shoukat Dedhar, Michael Organ, Alain Tchagang, Jinqiang Hou, Syed Ejaz Ahmed, Renata Dividino, and Yifeng Li",
+      "venue": "Molecular Diversity",
+      "date": "2024",
+      "link": "https://doi.org/10.1007/s11030-024-11042-0"
+    },
+    {
+      "year": 2024,
+      "type": "Journal",
+      "title": "Hybrid fragment-SMILES tokenization for ADMET prediction in drug discovery",
+      "authors": "Nicholas Aksamit, Alain Tchagang, Yifeng Li, and Beatrice Ombuki-Berman",
+      "venue": "BMC Bioinformatics",
+      "date": "vol. 25, 255, 2024",
+      "link": "https://doi.org/10.1186/s12859-024-05861-z"
+    },
+    {
+      "year": 2024,
+      "type": "Journal",
+      "title": "Integrating Transformers and Many-objective optimization for drug design",
+      "authors": "Nicholas Aksamit, Jinqiang Hou, Yifeng Li, and Beatrice Ombuki-Berman",
+      "venue": "BMC Bioinformatics",
+      "date": "vol. 25, 208, 2024",
+      "link": "https://doi.org/10.1186/s12859-024-05822-6"
+    },
+    {
+      "year": 2024,
+      "type": "Conference",
+      "title": "Picturing Ambiguity: A visual twist on the Winograd Schema Challenge",
+      "authors": "Brendan Park, Madeline Janecek, Naser Ezzati-Jivan, Yifeng Li, Ali Emami",
+      "venue": "Annual Meeting of the Association for Computational Linguistics (ACL)",
+      "date": "Aug. 2024 (oral presentation)",
+      "link": "https://doi.org/10.18653/v1/2024.acl-long.22"
+    },
+    {
+      "year": 2023,
+      "type": "Journal",
+      "title": "DAPTEV: Deep aptamer evolutionary modelling for COVID-19 drug design",
+      "authors": "Cameron Andress, Kalli Kappel, Marcus Elbert Villena, Miroslava Cuperlovic-Culf, Hongbin Yan, and Yifeng Li",
+      "venue": "PLoS Computational Biology",
+      "date": "vol. 19, no. 7, e1010774, 2023",
+      "link": "https://doi.org/10.1371/journal.pcbi.1010774"
+    },
+    {
+      "year": 2023,
+      "type": "Journal",
+      "title": "Examining multi-objective deep reinforcement learning frameworks for molecular design",
+      "authors": "Aws Al-Jumaily, Muhetaer Mukaidaisi, Andrew Vu, Alain Tchagang, and Yifeng Li",
+      "venue": "Biosystems",
+      "date": "vol. 232, 104989, 2023",
+      "link": "https://doi.org/10.1016/j.biosystems.2023.104989"
+    },
+    {
+      "year": 2023,
+      "type": "Journal",
+      "title": "Conformational flexibility and structural dynamics of aptamer - A mini review",
+      "authors": "Hayley-Ann Bennett, Yifeng Li, and Hongbin Yan",
+      "venue": "Aptamers",
+      "date": "vol. 7m 1-6, 2023",
+      "link": "#"
+    },
+    {
+      "year": 2022,
+      "type": "Conference",
+      "authors": "Aws Al Jumaily, Muhetaer Mukaidaisi, Andrew Vu, Alain Tchagang, Yifeng Li",
+      "title": "Exploring multi-objective deep reinforcement learning methods for drug design",
+      "venue": "International Conferences on Computational Biology and Bioinformatics (CIBCB)",
+      "date": "Aug. 2022",
+      "link": "https://doi.org/10.1109/CIBCB55180.2022.9863052"
+    },
+    {
+      "year": 2022,
+      "type": "Conference",
+      "authors": "Mohammad Sajjad Ghaemi, Karl Grantham, Isaac Tamblyn, Yifeng Li, Hsu Kiang Ooi",
+      "title": "Generative enriched sequential learning (ESL) approach for molecular design via augmented domain knowledge",
+      "venue": "Canadian AI",
+      "date": "2022",
+      "link": "https://doi.org/10.21428/594757db.2a028ce5"
+    },
+    {
+      "year": 2022,
+      "type": "Conference",
+      "authors": "Chunsheng Yang, Yifeng Li, Yubin Yang, Zheng Liu, Min Liao",
+      "title": "Transfer learning-enabled modelling framework for digital twin",
+      "venue": "IEEE International Conference on Computer Supported Cooperative Work in Design (IEEE CSCWD)",
+      "date": "May 2022",
+      "link": "#"
+    },
+    {
+      "year": 2021,
+      "type": "Journal",
+      "authors": "Qiang Li, Wenyun Shen, Ioannis Mavraganis, Liping Wang, Peng Gao, Jie Gao, Dustin Cram, Yifeng Li, Ziying Liu, Brian Fowler, Youlian Pan, Jitao Zou",
+      "title": "Elucidating the biochemical basis of trans-16:1 fatty acid change in leaves during cold acclimation in wheat",
+      "venue": "Plant-Environment Interactions",
+      "date": "vol. 2, no. 3, 101-111, 2021",
+      "link": "#"
+    },
+    {
+      "year": 2021,
+      "type": "Journal",
+      "authors": "Danny Salem, Yifeng Li, Pengcheng Xi, Miroslava Cuperlovic-Culf, Hilary Phenix, Mads Kaern",
+      "title": "YeastNet: Deep learning enabled accurate segmentation of budding yeast cells in bright-field microscopy",
+      "venue": "Applied Sciences",
+      "date": "vol. 11, no. 6, 2692, 2021",
+      "link": "#"
+    },
+    {
+      "year": 2021,
+      "type": "Conference",
+      "authors": "Sheriff Abouchekeir, Yifeng Li",
+      "title": "Adversarial deep evolutionary learning for drug design",
+      "venue": "International Conferences on Computational Biology and Bioinformatics (CIBCB)",
+      "date": "Oct. 2021, pp. 1\u20138",
+      "link": "https://doi.org/10.1109/CIBCB49929.2021.9562949"
+    },
+    {
+      "year": 2021,
+      "type": "Conference",
+      "authors": "Rui Yu, Wenpeng Lu, Yifeng Li, Jiguo Yu, Guoqiang Zhang, Xu Zhang",
+      "title": "Sentence semantic matching with hierarchical CNN based on dimension-augmented representation",
+      "venue": "International Joint Conference on Neural Networks (IJCNN)",
+      "date": "July 2021",
+      "link": "#"
+    },
+    {
+      "year": 2021,
+      "type": "Conference",
+      "authors": "Pengyu Zhao, Wenpeng Lu, Yifeng Li, Jiguo Yu, Ping Jian, Xu Zhang",
+      "title": "Chinese semantic matching with multi-granularity alignment and feature fusion",
+      "venue": "International Joint Conference on Neural Networks (IJCNN)",
+      "date": "July 2021",
+      "link": "#"
+    },
+    {
+      "year": 2023,
+      "type": "Journal",
+      "authors": "Hayley-Ann Bennett, Yifeng Li, Hongbin Yan",
+      "title": "Thermal treatment affects aptamers' structural profiles",
+      "venue": "Bioorganic & Medicinal Chemistry Letters",
+      "date": "vol. 82, no. 15, 129150, 2023",
+      "link": "https://doi.org/10.1016/j.bmcl.2023.129150"
+    },
+    {
+      "year": 2023,
+      "type": "Journal",
+      "authors": "Wenjie Liu, Austin M. Hopkins, Peizhi Yan, Shan Du, Leonard G. Luyt, Yifeng Li, Jinqiang Hou",
+      "title": "Can machine learning 'transform' peptides/peptidomimetics into small molecules? A case study with ghrelin receptorligands",
+      "venue": "Molecular Diversity",
+      "date": "vol. 27, 2239-2255, 2023",
+      "link": "https://doi.org/10.1007/s11030-022-10555-w"
+    },
+    {
+      "year": 2022,
+      "type": "Journal",
+      "authors": "Youlian Pan, Yifeng Li, Ziying Liu, Jitao Zou, Qiang Li",
+      "title": "Computational genomics insights into cold acclimation in wheat",
+      "venue": "Frontiers in Genetics",
+      "date": "vol 13, 1015673, 2022",
+      "link": "#"
+    },
+    {
+      "year": 2022,
+      "type": "Journal",
+      "authors": "Muhetaer Mukaidaisi, Andrew Vu, Karl Grantham, Alain Tchagang, Yifeng Li",
+      "title": "Multi-objective drug design based on graph-fragment molecular representation and deep evolutionary learning",
+      "venue": "Frontier in Pharmacology",
+      "date": "vol 13, Article 920747, 2022",
+      "link": "https://doi.org/10.3389/fphar.2022.920747"
+    },
+    {
+      "year": 2022,
+      "type": "Journal",
+      "authors": "Sheriff Abouchekeir, Andrew Vu, Muhetaer Mukaidaisi, Karl Grantham, Alain Tchagang, Yifeng Li",
+      "title": "Adversarial deep evolutionary learning for drug design",
+      "venue": "BioSystems",
+      "date": "vol. 222, 104790, 2022",
+      "link": "https://doi.org/10.1016/j.biosystems.2022.104790"
+    },
+    {
+      "year": 2022,
+      "type": "Journal",
+      "authors": "Karl Grantham, Muhetaer Mukaidaisi, Hsu Kiang Ooi, Mohammad Sajjad Ghaemi, Alain Tchagang, Yifeng Li",
+      "title": "Deep evolutionary learning for molecular design",
+      "venue": "IEEE Computational Intelligence Magazine",
+      "date": "vol. 17, no. 2, pp. 14-28, 2022",
+      "link": "https://doi.org/10.1109/MCI.2022.3155308"
+    },
+    {
+      "year": 2022,
+      "type": "Journal",
+      "authors": "Wenpeng Lu, Pengyu Zhao, Yifeng Li, Shoujin Wang, Heyan Huang, Shumin Shi, Hao Wu",
+      "title": "Chinese sentence semantic matching based on multi-level relevance extraction and aggregation for intelligent human-robot interaction",
+      "venue": "Applied Soft Computing",
+      "date": "vol. 131, 109795, 2022",
+      "link": "#"
+    }
+  ]
+}
