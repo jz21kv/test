@@ -20,6 +20,16 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
       document.getElementById("nav-placeholder").innerHTML = data;
 
+      //burger
+      const burger = document.getElementById("burger-toggle");
+      const navMenu = document.querySelector(".nav-menu");
+      if (burger && navMenu) {
+        burger.addEventListener("click", () => {
+          navMenu.classList.toggle("active");
+          burger.classList.toggle("active");
+        });
+      }
+
       const currentPage = window.location.pathname.split("/").pop();
       const teamRelated = ["team.html", "students.html", "pi.html"];
       const resourceRelated = ["resources.html", "admissions.html", "software.html"];
