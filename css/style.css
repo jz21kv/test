@@ -156,7 +156,6 @@ h6 {
   white-space: nowrap;
   line-height: 1;
   position: relative;
-  
 }
 
 /* dropdown hover */
@@ -177,6 +176,10 @@ h6 {
 
 .nav-menu li.dropdown:hover .dropdown-content {
   display: block;
+}
+
+.nav-menu li .dropdown-content a.active::after {
+  width: 100%;
 }
 
 /**team page**/
