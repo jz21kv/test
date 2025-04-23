@@ -216,30 +216,40 @@ document.addEventListener("DOMContentLoaded", () => {
         function filterPublications() {
           const keyword = searchInput?.value.toLowerCase() || "";
           const groups = document.querySelectorAll(".pub-group");
-
+        
           groups.forEach(group => {
             const groupYear = group.getAttribute("data-year");
             const items = group.querySelectorAll(".publication-item");
             let hasVisible = false;
-
+        
             items.forEach(pub => {
               const type = pub.getAttribute("data-type");
               const originalText = pub.innerText.toLowerCase();
-
+        
               const matchesFilter =
                 currentFilter === "All" ||
                 currentFilter === groupYear ||
                 currentFilter === type;
               const matchesSearch = originalText.includes(keyword);
               const shouldShow = matchesFilter && matchesSearch;
-
+        
               pub.style.display = shouldShow ? "block" : "none";
               if (shouldShow) hasVisible = true;
+        
+              // keyword highlighting 
+              if (matchesSearch && keyword.length > 0) {
+                const regex = new RegExp(`(${keyword})`, "gi");
+                const cleanHTML = pub.innerHTML.replace(/<\/?mark>/gi, ""); // remove previous highlights
+                pub.innerHTML = cleanHTML.replace(regex, "<mark>$1</mark>");
+              } else {
+                // remove highlight if no match
+                pub.innerHTML = pub.innerHTML.replace(/<\/?mark>/gi, "");
+              }
             });
-
+        
             group.style.display = hasVisible ? "block" : "none";
           });
-        }
+        }        
 
         filterButtons.forEach(btn => {
           btn.addEventListener("click", () => {
