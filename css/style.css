@@ -13,6 +13,7 @@ html {
 a {
   color: #003366;
   transition: 0.5s;
+  text-decoration: none;
 }
 
 a:hover,
@@ -423,7 +424,7 @@ font-size: 24px;
 }
 
 .pub-title {
-  text-decoration: underline;
+  text-decoration: none;
   color: #003366;
   font-weight: 500;
 }
@@ -502,7 +503,7 @@ line-height: 1.6;
 .admission-block a,
 .contact a {
 color: #1a1a1a;
-text-decoration: underline;
+text-decoration: none;
 }
 
 .admission-title,
@@ -641,7 +642,7 @@ display: inline-block;
 
   .nav-menu .dropdown-content li {
     display: block;
-    margin: 4px 0;
+    margin: 10px 0;
   }
 
   .nav-menu .dropdown-content a {
