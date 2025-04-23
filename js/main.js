@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.addEventListener("click", (e) => {
         if (!navMenu.contains(e.target) && !burger.contains(e.target)) {
           navMenu.classList.remove("active");
+          burger.classList.remove("active");
         }
       });
 
