@@ -661,4 +661,21 @@ display: inline-block;
   .nav-menu {
     gap: 0;
   }
+
+  /* Force side-by-side image layout on mobile */
+  .image-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+
+  .image-side-by-side {
+    margin: 0;            
+    flex: 1 1 0;      
+  }
+
+  .image-side-by-side img {
+    width: 50%;
+    height: auto;
+  }
 }
