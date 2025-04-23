@@ -526,7 +526,24 @@ text-align: center;
 }
 
 .image-block img {
-max-width: 100%;
+max-width: 70%;
 height: auto;
 display: inline-block;   
+}
+
+/** Make image blocks display side by side (About page) **/
+.image-wrapper {
+  text-align: center;  
+  margin-top: 20px;    
+}
+
+.image-side-by-side {
+  display: inline-block;
+  margin-right: 70px; 
+  margin-left: 70px;
+}
+
+.image-side-by-side img {
+  width: 200px; 
+  height: auto;
 }
