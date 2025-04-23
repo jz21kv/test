@@ -29,6 +29,13 @@ document.addEventListener("DOMContentLoaded", () => {
           burger.classList.toggle("active");
         });
       }
+      
+      // Close the menu if click outside of it
+      document.addEventListener("click", (e) => {
+        if (!navMenu.contains(e.target) && !burger.contains(e.target)) {
+          navMenu.classList.remove("active");
+        }
+      });
 
       const currentPage = window.location.pathname.split("/").pop();
       const teamRelated = ["team.html", "students.html", "pi.html"];
@@ -56,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     });
-    
+
   // Load footer and run any scripts inside it
   fetch("footer.html")
     .then(response => response.text())
