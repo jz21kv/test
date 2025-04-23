@@ -139,6 +139,11 @@ h6 {
 
 .nav-menu li .dropdown-content li {
   display: block;
+  margin-bottom: 12px;
+}
+
+.nav-menu li .dropdown-content li:nth-child(1) {
+  margin-bottom: 0px;  
 }
 
 .nav-menu li .dropdown-content a {
@@ -151,6 +156,7 @@ h6 {
   white-space: nowrap;
   line-height: 1;
   position: relative;
+  
 }
 
 /* dropdown hover */
