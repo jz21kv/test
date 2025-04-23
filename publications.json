@@ -16,7 +16,7 @@
       "authors": "T. McDonald, A. Colosimo, Y. Li, and A. Emami",
       "venue": "International Conference on Computational Linguistics (COLING)",
       "date": "Jan. 2025, pp. 7075\u20137086",
-      "link": "https://doi.org/10.18653/v1/2024.acl-long.22"
+      "link": "https://aclanthology.org/2025.coling-main.471/"
     },
     {
       "year": 2024,
@@ -79,7 +79,7 @@
       "authors": "H.-A. Bennett, Y. Li, and H. Yan",
       "venue": "Aptamers",
       "date": "vol. 7m 1-6, 2023",
-      "link": "#"
+      "link": "http://japtamers.co.uk/conformational-flexibility-and-structural-dynamics-of-aptamers/"
     },
     {
       "year": 2022,
@@ -106,7 +106,7 @@
       "title": "Transfer learning-enabled modelling framework for digital twin",
       "venue": "IEEE International Conference on Computer Supported Cooperative Work in Design (IEEE CSCWD)",
       "date": "May 2022",
-      "link": "#"
+      "link": "https://doi.org/10.1109/CSCWD54268.2022.9776083"
     },
     {
       "year": 2021,
@@ -115,7 +115,7 @@
       "title": "Elucidating the biochemical basis of trans-16:1 fatty acid change in leaves during cold acclimation in wheat",
       "venue": "Plant-Environment Interactions",
       "date": "vol. 2, no. 3, 101-111, 2021",
-      "link": "#"
+      "link": "https://doi.org/10.1002/pei3.10044"
     },
     {
       "year": 2021,
@@ -124,7 +124,7 @@
       "title": "YeastNet: Deep learning enabled accurate segmentation of budding yeast cells in bright-field microscopy",
       "venue": "Applied Sciences",
       "date": "vol. 11, no. 6, 2692, 2021",
-      "link": "#"
+      "link": "https://doi.org/10.3390/app11062692"
     },
     {
       "year": 2021,
@@ -142,7 +142,7 @@
       "title": "Sentence semantic matching with hierarchical CNN based on dimension-augmented representation",
       "venue": "International Joint Conference on Neural Networks (IJCNN)",
       "date": "July 2021",
-      "link": "#"
+      "link": "http://dx.doi.org/10.1109/IJCNN52387.2021.9533498"
     },
     {
       "year": 2021,
@@ -151,7 +151,7 @@
       "title": "Chinese semantic matching with multi-granularity alignment and feature fusion",
       "venue": "International Joint Conference on Neural Networks (IJCNN)",
       "date": "July 2021",
-      "link": "#"
+      "link": "http://dx.doi.org/10.1109/IJCNN52387.2021.9534130"
     },
     {
       "year": 2023,
@@ -178,7 +178,7 @@
       "title": "Computational genomics insights into cold acclimation in wheat",
       "venue": "Frontiers in Genetics",
       "date": "vol 13, 1015673, 2022",
-      "link": "#"
+      "link": "https://doi.org/10.3389/fgene.2022.1015673"
     },
     {
       "year": 2022,
@@ -214,7 +214,7 @@
       "title": "Chinese sentence semantic matching based on multi-level relevance extraction and aggregation for intelligent human-robot interaction",
       "venue": "Applied Soft Computing",
       "date": "vol. 131, 109795, 2022",
-      "link": "#"
+      "link": "https://doi.org/10.1016/j.asoc.2022.109795"
     }
   ]
 }
