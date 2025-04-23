@@ -56,11 +56,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     });
-  // Load footer
+    
+  // Load footer and run any scripts inside it
   fetch("footer.html")
     .then(response => response.text())
     .then(data => {
-      document.getElementById("footer-placeholder").innerHTML = data;
+      const footerContainer = document.getElementById("footer-placeholder");
+      footerContainer.innerHTML = data;
+
+      footerContainer.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) {
+          newScript.src = oldScript.src;
+        } else {
+          newScript.textContent = oldScript.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
     });
 
   // 2. Students Page Filters & Load

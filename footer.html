@@ -1,5 +1,12 @@
 <footer class="footer mt-5 py-4 text-center">
     <div class="container">
-        <p class="mb-0">© Brock Biomedical Data Science Lab 2025.</p>
+      <p class="mb-0">© Brock Biomedical Data Science Lab <span id="footer-year"></span>.</p>
     </div>
-</footer>
+  </footer>
+  
+  <script>
+    const yearSpan = document.getElementById("footer-year");
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
+    }
+  </script>
