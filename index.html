@@ -2,20 +2,12 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
   <title>Home</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <meta http-equiv="refresh" content="0; url=about.html" />
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400|Quicksand:500,600,700&display=swap"
-    rel="stylesheet" />
-
-  <!-- CSS Libraries -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
-
-  <!-- Stylesheet -->
-  <link href="css/style.css" rel="stylesheet" />
+  <script>
+    fetch("head.html")
+      .then(res => res.text())
+      .then(html => document.head.innerHTML += html);
+  </script>
 </head>
 
 <body>
