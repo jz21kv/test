@@ -215,6 +215,33 @@
       "venue": "Applied Soft Computing",
       "date": "vol. 131, 109795, 2022",
       "link": "https://doi.org/10.1016/j.asoc.2022.109795"
-    }
+    },
+    {
+      "year": 2023,
+      "type": "Book Chapter",
+      "authors": "Z. Liu, Y. Pan, Y. Li, T. Ouellet, and N. A. Foroud",
+      "title": "RNA-seq data processing in plant-pathogen interaction system: A case study",
+      "venue": "In Foroud, N.A., Neilson, J.A.D. (eds), Plant Pathogen Interactions, Springer Nature book series: Methods in Molecular Biology",
+      "date": "vol. 2659, pp. 119-135, 2023",
+      "link": "https://doi.org/10.1007/978-1-0716-3159-1_10"
+    },
+    {
+      "year": 2020,
+      "type": "Conference",
+      "authors": "X. Zhang, Y. Li, W. Lu, P. Jian, and G. Zhang",
+      "title": "Intra-Correlation Encoding for Chinese Sentence Intention Matching",
+      "venue": "International Conference on Computational Linguistics (COLING)",
+      "date": "Dec. 2020, pp. 5193-5204",
+      "link": "https://doi.org/10.18653/v1/2020.coling-main.455"
+    },
+    {
+      "year": 2020,
+      "type": "Conference",
+      "authors": "Y. Li, X. Zhu, R. Naud, and P. Xi",
+      "title": "Capsule deep generative model that forms parse trees",
+      "venue": "International Joint Conference on Neural Networks (IJCNN)",
+      "date": "July 2020, pp. 1-8",
+      "link": "https://doi.org/10.1109/IJCNN48605.2020.9206662"
+    }     
   ]
 }
