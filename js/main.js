@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   // 2. Students Page Filters & Load
-  if (window.location.pathname.endsWith("students.html")) {
+  if (window.location.pathname.includes("/students")) {
     fetch("students.json")
       .then(response => response.json())
       .then(data => {
@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 3. Publications Page Filters & Load
-  if (window.location.pathname.endsWith("publications.html")) {
+  if (window.location.pathname.includes("/publications")) {
     const container = document.querySelector(".container");
     const filterButtons = document.querySelectorAll(".publication-filters button");
     const searchInput = document.getElementById("searchBox");
