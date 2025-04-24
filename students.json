@@ -11,16 +11,16 @@
     {
       "name": "Aws Al Jumaily",
       "degree": "Masters",
-      "image": "./img/team/BMDS.png",
-      "linkedin": "",
+      "image": "./img/team/Aws_Al_Jumaily.png",
+      "linkedin": "https://www.linkedin.com/in/aws-al-jumaily-0593621a5/?originalSubdomain=ca",
       "status": "Current",
       "description": "2025"
     },
     {
       "name": "Maysara Al Jumaily",
       "degree": "PhD",
-      "image": "./img/team/BMDS.png",
-      "linkedin": "",
+      "image": "./img/team/Maysara_Al_Jumaily.png",
+      "linkedin": "https://www.linkedin.com/in/maysara-al-jumaily/?originalSubdomain=ca",
       "status": "Current",
       "description": "2025"
     },
@@ -28,7 +28,7 @@
       "name": "Qiqi Gao",
       "degree": "Masters",
       "image": "./img/team/BMDS.png",
-      "linkedin": "",
+      "linkedin": "https://www.linkedin.com/in/qiqi-gao-767142182/?originalSubdomain=ca",
       "status": "Current",
       "description": "2025"
     },
@@ -132,7 +132,7 @@
       "name": "Brendan Park",
       "degree": "Masters",
       "image": "./img/team/BMDS.png",
-      "linkedin": "",
+      "linkedin": "https://www.linkedin.com/in/brendan-park/?originalSubdomain=ca",
       "status": "Current",
       "description": "2025"
     },
