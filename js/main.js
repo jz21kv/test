@@ -68,6 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
               if (page === "students") loadStudentsPage();
               if (page === "publications") loadPublicationsPage();
+
+              // auto close burger
+              const burger = document.getElementById("burger-toggle");
+              const navMenu = document.querySelector(".nav-menu");
+              if (burger?.classList.contains("active")) {
+                burger.classList.remove("active");
+                navMenu?.classList.remove("active");
+              }
             });
         });
       });
