@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
           burger.classList.toggle("active");
         });
       }
-      
+
       // Close the menu if click outside of it
       document.addEventListener("click", (e) => {
         if (!navMenu.contains(e.target) && !burger.contains(e.target)) {
@@ -68,6 +68,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
               if (page === "students") loadStudentsPage();
               if (page === "publications") loadPublicationsPage();
+
+              // Use JS to dynamically generate email to prevent spam instead of hardcoding it in HTML
+              if (page === "contact") {
+                const username = "yli2";
+                const domain = "brocku.ca";
+                const emailLink = `<a href="mailto:${username}@${domain}">${username}@${domain}</a>`;
+                const emailElement = document.getElementById("email");
+                if (emailElement) {
+                  emailElement.innerHTML = emailLink;
+                }
+              }
 
               // auto close burger
               const burger = document.getElementById("burger-toggle");
@@ -241,26 +252,26 @@ document.addEventListener("DOMContentLoaded", () => {
         function filterPublications() {
           const keyword = searchInput?.value.toLowerCase() || "";
           const groups = document.querySelectorAll(".pub-group");
-        
+
           groups.forEach(group => {
             const groupYear = group.getAttribute("data-year");
             const items = group.querySelectorAll(".publication-item");
             let hasVisible = false;
-        
+
             items.forEach(pub => {
               const type = pub.getAttribute("data-type");
               const originalText = pub.innerText.toLowerCase();
-        
+
               const matchesFilter =
                 currentFilter === "All" ||
                 currentFilter === groupYear ||
                 currentFilter === type;
               const matchesSearch = originalText.includes(keyword);
               const shouldShow = matchesFilter && matchesSearch;
-        
+
               pub.style.display = shouldShow ? "block" : "none";
               if (shouldShow) hasVisible = true;
-        
+
               // keyword highlighting 
               if (matchesSearch && keyword.length > 0) {
                 const regex = new RegExp(`(${keyword})`, "gi");
@@ -271,10 +282,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 pub.innerHTML = pub.innerHTML.replace(/<\/?mark>/gi, "");
               }
             });
-        
+
             group.style.display = hasVisible ? "block" : "none";
           });
-        }        
+        }
 
         filterButtons.forEach(btn => {
           btn.addEventListener("click", () => {
