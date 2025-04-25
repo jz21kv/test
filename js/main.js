@@ -53,9 +53,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       document.querySelectorAll(".nav-menu a").forEach(link => {
-        if (link.getAttribute("href") === currentPage) {
-          link.classList.add("active");
-        }
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const href = link.getAttribute("href").replace(/^\.\/|\/$/g, "");
+          const page = href || "index";
+
+          fetch(`${page}.html`)
+            .then(res => res.text())
+            .then(html => {
+              document.getElementById("content").innerHTML = html;
+              history.pushState(null, "", `./${page}`);
+
+              setActiveNav(page);
+
+              if (page === "students") loadStudentsPage();
+              if (page === "publications") loadPublicationsPage();
+            });
+        });
       });
 
       document.querySelectorAll(".social a").forEach(link => {
@@ -84,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   // 2. Students Page Filters & Load
-  if (window.location.pathname.includes("/students")) {
+  function loadStudentsPage() {
     fetch("students.json")
       .then(response => response.json())
       .then(data => {
@@ -169,8 +183,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 3. Publications Page Filters & Load
-  if (window.location.pathname.includes("/publications")) {
-    const container = document.querySelector(".container");
+  function loadPublicationsPage() {
+    const container = document.getElementById("publicationContainer");
+    if (!container) return;
+    container.innerHTML = "";
+
     const filterButtons = document.querySelectorAll(".publication-filters button");
     const searchInput = document.getElementById("searchBox");
     let currentFilter = "All";
@@ -269,10 +286,41 @@ document.addEventListener("DOMContentLoaded", () => {
   // Show/hide Back to Top button
   window.addEventListener("scroll", function () {
     const backToTop = document.querySelector(".back-to-top");
-    if (window.scrollY > 300) {
-      backToTop.style.display = "flex";
-    } else {
-      backToTop.style.display = "none";
-    }
+    backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
+  });
+
+  // Popstate navigation
+  window.addEventListener("popstate", () => {
+    const page = window.location.pathname.split("/").pop().replace(".html", "") || "index";
+
+    fetch(`${page}.html`)
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("content").innerHTML = html;
+        setActiveNav(page);
+
+        if (page === "students") loadStudentsPage();
+        if (page === "publications") loadPublicationsPage();
+      });
   });
 });
+
+function setActiveNav(page) {
+  const cleanPage = page.replace(".html", "");
+
+  document.querySelectorAll(".nav-menu a").forEach(link => link.classList.remove("active"));
+  document.getElementById("team-link")?.classList.remove("active");
+  document.getElementById("resources-link")?.classList.remove("active");
+
+  document.querySelectorAll(".nav-menu a").forEach(link => {
+    const href = link.getAttribute("href").replace(/^\.\/|\/$/g, "").replace(".html", "");
+    if (href === cleanPage) {
+      link.classList.add("active");
+    }
+  });
+
+  const teamPages = ["students", "pi"];
+  const resourcePages = ["admissions", "software"];
+  if (teamPages.includes(cleanPage)) document.getElementById("team-link")?.classList.add("active");
+  if (resourcePages.includes(cleanPage)) document.getElementById("resources-link")?.classList.add("active");
+}
