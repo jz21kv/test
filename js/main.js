@@ -26,6 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
         link.addEventListener("click", function (e) {
           e.preventDefault();
           const href = link.getAttribute("href").replace(/^\.\/|\/$/g, "");
+
+          // Skip handling links that are not real navigation links
+          // (e.g., links with href="javascript:void(0);" used for dropdown toggles).
+          // These links should not trigger page fetch or change the URL.
+          if (!href || href.startsWith("javascript:")) {
+            return;
+          }
+
           const page = href || "about";
           history.pushState(null, "", `./${page}`);
           loadPage(page);
