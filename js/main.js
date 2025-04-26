@@ -96,6 +96,25 @@ document.addEventListener("DOMContentLoaded", () => {
           link.classList.add("disabled");
         }
       });
+
+      const logoImg = document.getElementById("logo-img");
+      if (logoImg) {
+        logoImg.addEventListener("click", (e) => {
+          e.preventDefault();
+          const page = "about";
+
+          fetch(`${page}.html`)
+            .then(res => res.text())
+            .then(html => {
+              document.getElementById("content").innerHTML = html;
+              history.pushState(null, "", `./${page}`);
+              setActiveNav(page);
+
+              if (page === "students") loadStudentsPage();
+              if (page === "publications") loadPublicationsPage();
+            });
+        });
+      }
     });
 
   // Load footer and run any scripts inside it
