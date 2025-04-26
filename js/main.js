@@ -14,12 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
           burger.classList.toggle("active");
         });
 
-      document.addEventListener("click", (e) => {
-        if (!navMenu.contains(e.target) && !burger.contains(e.target)) {
-          navMenu.classList.remove("active");
-          burger.classList.remove("active");
-        }
-      });
+        document.addEventListener("click", (e) => {
+          if (!navMenu.contains(e.target) && !burger.contains(e.target)) {
+            navMenu.classList.remove("active");
+            burger.classList.remove("active");
+          }
+        });
       }
 
       document.querySelectorAll(".nav-menu a").forEach(link => {
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
           e.preventDefault();
           const href = link.getAttribute("href").replace(/^\.\/|\/$/g, "");
           const page = href || "about";
-              history.pushState(null, "", `./${page}`);
+          history.pushState(null, "", `./${page}`);
           loadPage(page);
         });
       });
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         logoImg.addEventListener("click", (e) => {
           e.preventDefault();
           const page = "about";
-              history.pushState(null, "", `./${page}`);
+          history.pushState(null, "", `./${page}`);
           loadPage(page);
         });
       }
@@ -97,7 +97,7 @@ function loadPage(page) {
     })
     .catch(error => {
       console.error(error);
-      // fallback到about
+      // fallback to about
       loadPage("about");
     });
 }
@@ -133,15 +133,15 @@ function generateEmail() {
 }
 
 // 6. Students page
-  function loadStudentsPage() {
-    fetch("students.json")
-      .then(response => response.json())
-      .then(data => {
-        const row = document.querySelector(".team .row");
-        data.students.forEach(student => {
-          const card = document.createElement("div");
-          card.className = "col-lg-6 mt-4";
-          card.innerHTML = `
+function loadStudentsPage() {
+  fetch("students.json")
+    .then(response => response.json())
+    .then(data => {
+      const row = document.querySelector(".team .row");
+      data.students.forEach(student => {
+        const card = document.createElement("div");
+        card.className = "col-lg-6 mt-4";
+        card.innerHTML = `
           <div class="member d-flex align-items-start" data-role="${student.status} ${student.degree}">
             <div class="teampic">
               <img src="${student.image}" class="img-fluid" alt="${student.name}">
@@ -153,157 +153,157 @@ function generateEmail() {
             </div>
           </div>
         `;
-          row.appendChild(card);
-        });
-
-        const roleButtons = document.querySelectorAll(".role-filters button");
-        const letterButtons = document.querySelectorAll(".letter-filters a");
-        const members = document.querySelectorAll(".member");
-
-        let currentRole = "Current";
-        let currentLetter = "All";
-
-        function applyFilters() {
-          const subRoles = ["PhD", "Masters", "Undergraduate", "Visiting Researcher", "Other"];
-
-          members.forEach(member => {
-            const roles = (member.getAttribute("data-role") || "").split(" ");
-            const status = roles[0];
-            const degree = roles[1];
-            const name = member.querySelector("h4")?.innerText.trim().toUpperCase() || "";
-            const firstLetter = name.charAt(0);
-
-            let roleMatch = false;
-            if (currentRole === "All") roleMatch = true;
-            else if (currentRole === "Alumni") roleMatch = status === "Alumni";
-            else if (subRoles.includes(currentRole)) roleMatch = status === "Current" && degree === currentRole;
-            else if (currentRole === "Current") roleMatch = status === "Current";
-
-            const letterMatch = currentLetter === "All" || firstLetter === currentLetter;
-            member.parentElement.style.display = roleMatch && letterMatch ? "block" : "none";
-          });
-        }
-
-        roleButtons.forEach(btn => {
-          btn.addEventListener("click", () => {
-            roleButtons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            currentRole = btn.getAttribute("data-filter");
-            applyFilters();
-          });
-        });
-
-        letterButtons.forEach(btn => {
-          btn.addEventListener("click", e => {
-            e.preventDefault();
-            letterButtons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            currentLetter = btn.getAttribute("data-letter");
-            applyFilters();
-          });
-        });
-
-        applyFilters();
+        row.appendChild(card);
       });
 
-  }
+      const roleButtons = document.querySelectorAll(".role-filters button");
+      const letterButtons = document.querySelectorAll(".letter-filters a");
+      const members = document.querySelectorAll(".member");
+
+      let currentRole = "Current";
+      let currentLetter = "All";
+
+      function applyFilters() {
+        const subRoles = ["PhD", "Masters", "Undergraduate", "Visiting Researcher", "Other"];
+
+        members.forEach(member => {
+          const roles = (member.getAttribute("data-role") || "").split(" ");
+          const status = roles[0];
+          const degree = roles[1];
+          const name = member.querySelector("h4")?.innerText.trim().toUpperCase() || "";
+          const firstLetter = name.charAt(0);
+
+          let roleMatch = false;
+          if (currentRole === "All") roleMatch = true;
+          else if (currentRole === "Alumni") roleMatch = status === "Alumni";
+          else if (subRoles.includes(currentRole)) roleMatch = status === "Current" && degree === currentRole;
+          else if (currentRole === "Current") roleMatch = status === "Current";
+
+          const letterMatch = currentLetter === "All" || firstLetter === currentLetter;
+          member.parentElement.style.display = roleMatch && letterMatch ? "block" : "none";
+        });
+      }
+
+      roleButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          roleButtons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentRole = btn.getAttribute("data-filter");
+          applyFilters();
+        });
+      });
+
+      letterButtons.forEach(btn => {
+        btn.addEventListener("click", e => {
+          e.preventDefault();
+          letterButtons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentLetter = btn.getAttribute("data-letter");
+          applyFilters();
+        });
+      });
+
+      applyFilters();
+    });
+
+}
 
 // 7. Publications page
-  function loadPublicationsPage() {
-    const container = document.getElementById("publicationContainer");
-    if (!container) return;
-    container.innerHTML = "";
+function loadPublicationsPage() {
+  const container = document.getElementById("publicationContainer");
+  if (!container) return;
+  container.innerHTML = "";
 
-    const filterButtons = document.querySelectorAll(".publication-filters button");
-    const searchInput = document.getElementById("searchBox");
-    let currentFilter = "All";
+  const filterButtons = document.querySelectorAll(".publication-filters button");
+  const searchInput = document.getElementById("searchBox");
+  let currentFilter = "All";
 
-    fetch("publications.json")
-      .then(response => response.json())
-      .then(data => {
-        const grouped = {};
-        data.publications.forEach(pub => {
-          if (!grouped[pub.year]) grouped[pub.year] = [];
-          grouped[pub.year].push(pub);
-        });
+  fetch("publications.json")
+    .then(response => response.json())
+    .then(data => {
+      const grouped = {};
+      data.publications.forEach(pub => {
+        if (!grouped[pub.year]) grouped[pub.year] = [];
+        grouped[pub.year].push(pub);
+      });
 
-        Object.keys(grouped).sort((a, b) => b - a).forEach(year => {
-          const group = document.createElement("div");
-          group.className = "pub-group";
-          group.setAttribute("data-year", year);
+      Object.keys(grouped).sort((a, b) => b - a).forEach(year => {
+        const group = document.createElement("div");
+        group.className = "pub-group";
+        group.setAttribute("data-year", year);
 
-          const heading = document.createElement("h3");
-          heading.className = "pub-year";
-          heading.textContent = year;
-          group.appendChild(heading);
+        const heading = document.createElement("h3");
+        heading.className = "pub-year";
+        heading.textContent = year;
+        group.appendChild(heading);
 
-          grouped[year].forEach(pub => {
-            const item = document.createElement("div");
-            item.className = "publication-item";
-            item.setAttribute("data-year", pub.year);
-            item.setAttribute("data-type", pub.type);
+        grouped[year].forEach(pub => {
+          const item = document.createElement("div");
+          item.className = "publication-item";
+          item.setAttribute("data-year", pub.year);
+          item.setAttribute("data-type", pub.type);
 
-            const p = document.createElement("p");
-            p.innerHTML = `${pub.authors},<br>
+          const p = document.createElement("p");
+          p.innerHTML = `${pub.authors},<br>
               <a href="${pub.link}" target="_blank" class="pub-title">"${pub.title}"</a>,
               <em>${pub.venue}</em>, ${pub.date}${pub.pages ? ", " + pub.pages : ""}${pub.note ? ", " + pub.note : ""}.`;
 
-            item.appendChild(p);
-            group.appendChild(item);
-          });
-
-          container.appendChild(group);
+          item.appendChild(p);
+          group.appendChild(item);
         });
 
-        function filterPublications() {
-          const keyword = searchInput?.value.toLowerCase() || "";
-          const groups = document.querySelectorAll(".pub-group");
-
-          groups.forEach(group => {
-            const groupYear = group.getAttribute("data-year");
-            const items = group.querySelectorAll(".publication-item");
-            let hasVisible = false;
-
-            items.forEach(pub => {
-              const type = pub.getAttribute("data-type");
-              const originalText = pub.innerText.toLowerCase();
-
-              const matchesFilter = currentFilter === "All" || currentFilter === groupYear || currentFilter === type;
-              const matchesSearch = originalText.includes(keyword);
-              const shouldShow = matchesFilter && matchesSearch;
-
-              pub.style.display = shouldShow ? "block" : "none";
-              if (shouldShow) hasVisible = true;
-
-              if (matchesSearch && keyword.length > 0) {
-                const regex = new RegExp(`(${keyword})`, "gi");
-                const cleanHTML = pub.innerHTML.replace(/<\/?mark>/gi, "");
-                pub.innerHTML = cleanHTML.replace(regex, "<mark>$1</mark>");
-              } else {
-                pub.innerHTML = pub.innerHTML.replace(/<\/?mark>/gi, "");
-              }
-            });
-
-            group.style.display = hasVisible ? "block" : "none";
-          });
-        }
-
-        filterButtons.forEach(btn => {
-          btn.addEventListener("click", () => {
-            filterButtons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            currentFilter = btn.getAttribute("data-filter");
-            filterPublications();
-          });
-        });
-
-        searchInput?.addEventListener("input", filterPublications);
-        filterPublications();
+        container.appendChild(group);
       });
-  }
+
+      function filterPublications() {
+        const keyword = searchInput?.value.toLowerCase() || "";
+        const groups = document.querySelectorAll(".pub-group");
+
+        groups.forEach(group => {
+          const groupYear = group.getAttribute("data-year");
+          const items = group.querySelectorAll(".publication-item");
+          let hasVisible = false;
+
+          items.forEach(pub => {
+            const type = pub.getAttribute("data-type");
+            const originalText = pub.innerText.toLowerCase();
+
+            const matchesFilter = currentFilter === "All" || currentFilter === groupYear || currentFilter === type;
+            const matchesSearch = originalText.includes(keyword);
+            const shouldShow = matchesFilter && matchesSearch;
+
+            pub.style.display = shouldShow ? "block" : "none";
+            if (shouldShow) hasVisible = true;
+
+            if (matchesSearch && keyword.length > 0) {
+              const regex = new RegExp(`(${keyword})`, "gi");
+              const cleanHTML = pub.innerHTML.replace(/<\/?mark>/gi, "");
+              pub.innerHTML = cleanHTML.replace(regex, "<mark>$1</mark>");
+            } else {
+              pub.innerHTML = pub.innerHTML.replace(/<\/?mark>/gi, "");
+            }
+          });
+
+          group.style.display = hasVisible ? "block" : "none";
+        });
+      }
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          filterButtons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentFilter = btn.getAttribute("data-filter");
+          filterPublications();
+        });
+      });
+
+      searchInput?.addEventListener("input", filterPublications);
+      filterPublications();
+    });
+}
 
 // 8. back to top
-  window.addEventListener("scroll", function () {
-    const backToTop = document.querySelector(".back-to-top");
-    backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
-  });
+window.addEventListener("scroll", function () {
+  const backToTop = document.querySelector(".back-to-top");
+  backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
+});
