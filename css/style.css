@@ -592,6 +592,19 @@ display: inline-block;
   transform: rotate(90deg);
 }
 
+/* Default footer */
+.footer {
+  background-color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+}
+
+/* Footer uses the light gray */
+.footer p {
+  color: #666;
+}
+
 /* Tablet + Mobile */
 @media (max-width: 1023px) {
   .burger {
@@ -679,6 +692,11 @@ display: inline-block;
   .logo-img {
     height: 60px; 
     width: auto;
+  }
+
+   /* smaller footer */
+   .footer {
+    font-size: 12px; 
   }
 
   /* Force side-by-side image layout on mobile */
