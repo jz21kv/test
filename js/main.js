@@ -1,18 +1,3 @@
-/**
- * 1. Global Navigation (All Pages)
- *    - Loads the navigation bar from nav.html
- *    - Highlights the current page's nav link
- *
- * 2. Students Page (students.html)
- *    - Loads student data dynamically from students.json
- *    - Builds student member cards dynamically
- *    - Filters students by role (Current, Alumni, etc.)
- *    - Filters students by first letter of name (A–Z)
- *
- * 3. Publications Page (publications.html)
- *    - Filters publications by year or type (Journal, Conference)
- *    - Provides keyword-based search with result highlighting
- */
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Load nav bar
   fetch("nav.html")
@@ -20,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
       document.getElementById("nav-placeholder").innerHTML = data;
 
-      //burger
+      // burger
       const burger = document.getElementById("burger-toggle");
       const navMenu = document.querySelector(".nav-menu");
       if (burger && navMenu) {
@@ -28,73 +13,23 @@ document.addEventListener("DOMContentLoaded", () => {
           navMenu.classList.toggle("active");
           burger.classList.toggle("active");
         });
-      }
 
-      // Close the menu if click outside of it
       document.addEventListener("click", (e) => {
         if (!navMenu.contains(e.target) && !burger.contains(e.target)) {
           navMenu.classList.remove("active");
           burger.classList.remove("active");
         }
       });
-
-      const currentPage = window.location.pathname.split("/").pop();
-      const teamRelated = ["team.html", "students.html", "pi.html"];
-      const resourceRelated = ["resources.html", "admissions.html", "software.html"];
-
-      if (teamRelated.includes(currentPage)) {
-        const teamLink = document.getElementById("team-link");
-        if (teamLink) teamLink.classList.add("active");
-      }
-
-      if (resourceRelated.includes(currentPage)) {
-        const resourceLink = document.getElementById("resources-link");
-        if (resourceLink) resourceLink.classList.add("active");
       }
 
       document.querySelectorAll(".nav-menu a").forEach(link => {
         link.addEventListener("click", function (e) {
           e.preventDefault();
           const href = link.getAttribute("href").replace(/^\.\/|\/$/g, "");
-          const page = href || "index";
-
-          fetch(`${page}.html`)
-            .then(res => res.text())
-            .then(html => {
-              document.getElementById("content").innerHTML = html;
+          const page = href || "about";
               history.pushState(null, "", `./${page}`);
-
-              setActiveNav(page);
-
-              if (page === "students") loadStudentsPage();
-              if (page === "publications") loadPublicationsPage();
-
-              // Use JS to dynamically generate email to prevent spam instead of hardcoding it in HTML
-              if (page === "contact") {
-                const username = "yli2";
-                const domain = "brocku.ca";
-                const emailLink = `<a href="mailto:${username}@${domain}">${username}@${domain}</a>`;
-                const emailElement = document.getElementById("email");
-                if (emailElement) {
-                  emailElement.innerHTML = emailLink;
-                }
-              }
-
-              // auto close burger
-              const burger = document.getElementById("burger-toggle");
-              const navMenu = document.querySelector(".nav-menu");
-              if (burger?.classList.contains("active")) {
-                burger.classList.remove("active");
-                navMenu?.classList.remove("active");
-              }
-            });
+          loadPage(page);
         });
-      });
-
-      document.querySelectorAll(".social a").forEach(link => {
-        if (!link.getAttribute("href")) {
-          link.classList.add("disabled");
-        }
       });
 
       const logoImg = document.getElementById("logo-img");
@@ -102,22 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
         logoImg.addEventListener("click", (e) => {
           e.preventDefault();
           const page = "about";
-
-          fetch(`${page}.html`)
-            .then(res => res.text())
-            .then(html => {
-              document.getElementById("content").innerHTML = html;
               history.pushState(null, "", `./${page}`);
-              setActiveNav(page);
-
-              if (page === "students") loadStudentsPage();
-              if (page === "publications") loadPublicationsPage();
-            });
+          loadPage(page);
         });
       }
     });
 
-  // Load footer and run any scripts inside it
+  // 2. Load footer
   fetch("footer.html")
     .then(response => response.text())
     .then(data => {
@@ -135,7 +61,78 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-  // 2. Students Page Filters & Load
+  // 3. First Load the correct page
+  const page = window.location.pathname.split("/").pop().replace(".html", "") || "about";
+  loadPage(page);
+});
+
+// 4. Handle browser back/forward
+window.addEventListener("popstate", () => {
+  const page = window.location.pathname.split("/").pop().replace(".html", "") || "about";
+  loadPage(page);
+});
+
+// 5. Universal page loader
+function loadPage(page) {
+  fetch(`${page}.html`)
+    .then(res => {
+      if (!res.ok) throw new Error(`Page not found: ${page}`);
+      return res.text();
+    })
+    .then(html => {
+      document.getElementById("content").innerHTML = html;
+      setActiveNav(page);
+
+      if (page === "students") loadStudentsPage();
+      if (page === "publications") loadPublicationsPage();
+      if (page === "contact") generateEmail();
+
+      // Close burger after navigation
+      const burger = document.getElementById("burger-toggle");
+      const navMenu = document.querySelector(".nav-menu");
+      if (burger?.classList.contains("active")) {
+        burger.classList.remove("active");
+        navMenu?.classList.remove("active");
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      // fallback到about
+      loadPage("about");
+    });
+}
+
+function setActiveNav(page) {
+  const cleanPage = page.replace(".html", "");
+
+  document.querySelectorAll(".nav-menu a").forEach(link => link.classList.remove("active"));
+  document.getElementById("team-link")?.classList.remove("active");
+  document.getElementById("resources-link")?.classList.remove("active");
+
+  document.querySelectorAll(".nav-menu a").forEach(link => {
+    const href = link.getAttribute("href").replace(/^\.\/|\/$/g, "").replace(".html", "");
+    if (href === cleanPage) {
+      link.classList.add("active");
+    }
+  });
+
+  const teamPages = ["students", "pi"];
+  const resourcePages = ["admissions", "software"];
+  if (teamPages.includes(cleanPage)) document.getElementById("team-link")?.classList.add("active");
+  if (resourcePages.includes(cleanPage)) document.getElementById("resources-link")?.classList.add("active");
+}
+
+function generateEmail() {
+  const username = "yli2";
+  const domain = "brocku.ca";
+  const emailLink = `<a href="mailto:${username}@${domain}">${username}@${domain}</a>`;
+  const emailElement = document.getElementById("email");
+  if (emailElement) {
+    emailElement.innerHTML = emailLink;
+  }
+}
+
+// 6. Students page
   function loadStudentsPage() {
     fetch("students.json")
       .then(response => response.json())
@@ -159,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
           row.appendChild(card);
         });
 
-        // Re-run filters after cards are added
         const roleButtons = document.querySelectorAll(".role-filters button");
         const letterButtons = document.querySelectorAll(".letter-filters a");
         const members = document.querySelectorAll(".member");
@@ -172,30 +168,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
           members.forEach(member => {
             const roles = (member.getAttribute("data-role") || "").split(" ");
-            const status = roles[0]; // e.g. "Current"
-            const degree = roles[1]; // e.g. "Masters"
+            const status = roles[0];
+            const degree = roles[1];
             const name = member.querySelector("h4")?.innerText.trim().toUpperCase() || "";
             const firstLetter = name.charAt(0);
 
             let roleMatch = false;
-
-            if (currentRole === "All") {
-              roleMatch = true;
-            } else if (currentRole === "Alumni") {
-              roleMatch = status === "Alumni";
-            } else if (subRoles.includes(currentRole)) {
-              roleMatch = status === "Current" && degree === currentRole;
-            } else if (currentRole === "Current") {
-              roleMatch = status === "Current";
-            }
+            if (currentRole === "All") roleMatch = true;
+            else if (currentRole === "Alumni") roleMatch = status === "Alumni";
+            else if (subRoles.includes(currentRole)) roleMatch = status === "Current" && degree === currentRole;
+            else if (currentRole === "Current") roleMatch = status === "Current";
 
             const letterMatch = currentLetter === "All" || firstLetter === currentLetter;
-
-            const show = roleMatch && letterMatch;
-            member.parentElement.style.display = show ? "block" : "none";
+            member.parentElement.style.display = roleMatch && letterMatch ? "block" : "none";
           });
         }
-
 
         roleButtons.forEach(btn => {
           btn.addEventListener("click", () => {
@@ -218,9 +205,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         applyFilters();
       });
+
   }
 
-  // 3. Publications Page Filters & Load
+// 7. Publications page
   function loadPublicationsPage() {
     const container = document.getElementById("publicationContainer");
     if (!container) return;
@@ -267,7 +255,6 @@ document.addEventListener("DOMContentLoaded", () => {
           container.appendChild(group);
         });
 
-        // Add filtering
         function filterPublications() {
           const keyword = searchInput?.value.toLowerCase() || "";
           const groups = document.querySelectorAll(".pub-group");
@@ -281,23 +268,18 @@ document.addEventListener("DOMContentLoaded", () => {
               const type = pub.getAttribute("data-type");
               const originalText = pub.innerText.toLowerCase();
 
-              const matchesFilter =
-                currentFilter === "All" ||
-                currentFilter === groupYear ||
-                currentFilter === type;
+              const matchesFilter = currentFilter === "All" || currentFilter === groupYear || currentFilter === type;
               const matchesSearch = originalText.includes(keyword);
               const shouldShow = matchesFilter && matchesSearch;
 
               pub.style.display = shouldShow ? "block" : "none";
               if (shouldShow) hasVisible = true;
 
-              // keyword highlighting 
               if (matchesSearch && keyword.length > 0) {
                 const regex = new RegExp(`(${keyword})`, "gi");
-                const cleanHTML = pub.innerHTML.replace(/<\/?mark>/gi, ""); // remove previous highlights
+                const cleanHTML = pub.innerHTML.replace(/<\/?mark>/gi, "");
                 pub.innerHTML = cleanHTML.replace(regex, "<mark>$1</mark>");
               } else {
-                // remove highlight if no match
                 pub.innerHTML = pub.innerHTML.replace(/<\/?mark>/gi, "");
               }
             });
@@ -316,49 +298,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         searchInput?.addEventListener("input", filterPublications);
-
         filterPublications();
       });
   }
 
-  // Show/hide Back to Top button
+// 8. back to top
   window.addEventListener("scroll", function () {
     const backToTop = document.querySelector(".back-to-top");
     backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
   });
-
-  // Popstate navigation
-  window.addEventListener("popstate", () => {
-    const page = window.location.pathname.split("/").pop().replace(".html", "") || "index";
-
-    fetch(`${page}.html`)
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("content").innerHTML = html;
-        setActiveNav(page);
-
-        if (page === "students") loadStudentsPage();
-        if (page === "publications") loadPublicationsPage();
-      });
-  });
-});
-
-function setActiveNav(page) {
-  const cleanPage = page.replace(".html", "");
-
-  document.querySelectorAll(".nav-menu a").forEach(link => link.classList.remove("active"));
-  document.getElementById("team-link")?.classList.remove("active");
-  document.getElementById("resources-link")?.classList.remove("active");
-
-  document.querySelectorAll(".nav-menu a").forEach(link => {
-    const href = link.getAttribute("href").replace(/^\.\/|\/$/g, "").replace(".html", "");
-    if (href === cleanPage) {
-      link.classList.add("active");
-    }
-  });
-
-  const teamPages = ["students", "pi"];
-  const resourcePages = ["admissions", "software"];
-  if (teamPages.includes(cleanPage)) document.getElementById("team-link")?.classList.add("active");
-  if (resourcePages.includes(cleanPage)) document.getElementById("resources-link")?.classList.add("active");
-}
