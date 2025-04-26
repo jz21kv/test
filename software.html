@@ -22,7 +22,46 @@
 <body>
   <div class="wrapper">
     <!-- Nav Start -->
-    <div id="nav-placeholder"></div>
+    <div id="nav">
+      <div class="container">
+        <!-- logo  -->
+        <div id="logo">
+          <a href="./about">
+            <img src="img/logo/logo1_bright.png" alt="BMDS Logo" class="logo-img" id="logo-img"/>
+          </a>
+        </div>
+    
+        <!-- Hamburger -->
+        <button id="burger-toggle" class="burger">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+          </svg>
+        </button>
+    
+        <!-- menu -->
+        <nav id="nav-menu-container">
+          <ul class="nav-menu">
+            <li><a href="./about">About</a></li>
+            <li class="dropdown">
+              <a href="javascript:void(0);" id="team-link">Team</a>
+              <ul class="dropdown-content">
+                <li><a href="./pi">PI</a></li>
+                <li><a href="./students">Students</a></li>
+              </ul>
+            </li>
+            <li><a href="./publications">Publications</a></li>
+            <li class="dropdown">
+              <a href="javascript:void(0);" id="resources-link">Resources</a>
+              <ul class="dropdown-content">
+                <li><a href="./admissions">Admissions</a></li>
+                <li><a href="./software">Software</a></li>
+              </ul>
+            </li>
+            <li><a href="./contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
     <!-- Nav End -->
     <main id="content">
     <div class="container">
@@ -86,8 +125,12 @@
     <a href="#" class="back-to-top" title="Back to Top">
         <i class="bi bi-arrow-up"></i>
     </a>
-    <!-- footer -->
-    <div id="footer-placeholder"></div>
+  <!-- footer -->
+  <footer class="footer mt-5 py-4 text-center">
+    <div class="container">
+      <p class="mb-0">© Brock Biomedical Data Science Lab <span id="footer-year"></span>.</p>
+    </div>
+  </footer>
 </body>
 
 </html>

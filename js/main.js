@@ -1,11 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Load nav bar
-  fetch("nav.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("nav-placeholder").innerHTML = data;
-
-      // burger
+  // 1. burger
       const burger = document.getElementById("burger-toggle");
       const navMenu = document.querySelector(".nav-menu");
       if (burger && navMenu) {
@@ -49,25 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
           loadPage(page);
         });
       }
-    });
 
-  // 2. Load footer
-  fetch("footer.html")
-    .then(response => response.text())
-    .then(data => {
-      const footerContainer = document.getElementById("footer-placeholder");
-      footerContainer.innerHTML = data;
-
-      footerContainer.querySelectorAll("script").forEach(oldScript => {
-        const newScript = document.createElement("script");
-        if (oldScript.src) {
-          newScript.src = oldScript.src;
-        } else {
-          newScript.textContent = oldScript.textContent;
-        }
-        document.body.appendChild(newScript);
-      });
-    });
+  // Update footer year
+  const yearSpan = document.getElementById("footer-year");
+  if (yearSpan) {
+    yearSpan.textContent = new Date().getFullYear();
+  }
 
   // 3. First Load the correct page
   const page = window.location.pathname.split("/").pop().replace(".html", "") || "about";
@@ -95,7 +76,16 @@ function loadPage(page) {
       return res.text();
     })
     .then(html => {
-      document.getElementById("content").innerHTML = html;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+
+      const mainContent = doc.querySelector("main");
+      if (mainContent) {
+        document.getElementById("content").innerHTML = mainContent.innerHTML;
+      } else {
+        document.getElementById("content").innerHTML = html;
+      }
+
       setActiveNav(page);
 
       if (page === "students") loadStudentsPage();
