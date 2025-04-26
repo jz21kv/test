@@ -72,8 +72,15 @@ window.addEventListener("popstate", () => {
   loadPage(page);
 });
 
+let currentPage = "";
+
 // 5. Universal page loader
 function loadPage(page) {
+  if (currentPage === page) {
+    return; 
+  }
+  currentPage = page;// avoid reload when clicking the same page
+
   fetch(`${page}.html`)
     .then(res => {
       if (!res.ok) throw new Error(`Page not found: ${page}`);
