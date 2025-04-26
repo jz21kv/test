@@ -146,18 +146,20 @@ function loadStudentsPage() {
       data.students.forEach(student => {
         const card = document.createElement("div");
         card.className = "col-lg-6 mt-4";
+        // Set student photo to default if image is empty
+        const imgSrc = student.image && student.image.trim() !== "" ? student.image : "./img/team/default.png";
         card.innerHTML = `
-          <div class="member d-flex align-items-start" data-role="${student.status} ${student.degree}">
-            <div class="teampic">
-              <img src="${student.image}" class="img-fluid" alt="${student.name}">
-            </div>
-            <div class="member-info">
-              <h4>${student.linkedin ? `<a href="${student.linkedin}" target="_blank">${student.name}</a>` : student.name}</h4>
-              <span>${student.degree}</span>
-              <p>${student.description || ""}</p>
-            </div>
+        <div class="member d-flex align-items-start" data-role="${student.status} ${student.degree}">
+          <div class="teampic">
+            <img src="${imgSrc}" class="img-fluid" alt="${student.name}">
           </div>
-        `;
+          <div class="member-info">
+            <h4>${student.linkedin ? `<a href="${student.linkedin}" target="_blank">${student.name}</a>` : student.name}</h4>
+            <span>${student.degree}</span>
+            <p>${student.description || ""}</p>
+          </div>
+        </div>
+      `;
         row.appendChild(card);
       });
 
