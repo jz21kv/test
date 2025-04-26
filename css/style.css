@@ -47,12 +47,22 @@ h6 {
   flex: 1;
 }
 
-/**logo**/
-.logo-text {
-  font-size: 24px;
-  font-weight: bold;
-  color: #003366;
-  text-decoration: none;
+/* logo 4 */
+/* .logo-img {
+  height: 70px;           
+  width: auto;            
+  object-fit: contain;
+  cursor: pointer;
+  margin-top: -7px;
+} */
+
+/* logo 1 & 2 & 3*/
+.logo-img {
+  height: 80px;           
+  width: auto;            
+  object-fit: contain;
+  cursor: pointer;
+  margin-top: -14px;
 }
 
 #nav {
@@ -296,10 +306,11 @@ section {
 
 .section-title {
   text-align: left;
-  margin-top: 120px;     
+  margin-top: 140px;     
   margin-bottom: 10px;   
   padding-bottom: 0;     
 }
+
 section.team {
   padding-top: 0px;
 }
@@ -662,6 +673,12 @@ display: inline-block;
 
   .nav-menu {
     gap: 0;
+  }
+
+  /* smaller logo size */
+  .logo-img {
+    height: 60px; 
+    width: auto;
   }
 
   /* Force side-by-side image layout on mobile */
