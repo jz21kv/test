@@ -1,48 +1,48 @@
 document.addEventListener("DOMContentLoaded", () => {
   // 1. burger
-      const burger = document.getElementById("burger-toggle");
-      const navMenu = document.querySelector(".nav-menu");
-      if (burger && navMenu) {
-        burger.addEventListener("click", () => {
-          navMenu.classList.toggle("active");
-          burger.classList.toggle("active");
-        });
+  const burger = document.getElementById("burger-toggle");
+  const navMenu = document.querySelector(".nav-menu");
+  if (burger && navMenu) {
+    burger.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+      burger.classList.toggle("active");
+    });
 
-        document.addEventListener("click", (e) => {
-          if (!navMenu.contains(e.target) && !burger.contains(e.target)) {
-            navMenu.classList.remove("active");
-            burger.classList.remove("active");
-          }
-        });
+    document.addEventListener("click", (e) => {
+      if (!navMenu.contains(e.target) && !burger.contains(e.target)) {
+        navMenu.classList.remove("active");
+        burger.classList.remove("active");
+      }
+    });
+  }
+
+  document.querySelectorAll(".nav-menu a").forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const href = link.getAttribute("href").replace(/^\.\/|\/$/g, "");
+
+      // Skip handling links that are not real navigation links
+      // (e.g., links with href="javascript:void(0);" used for dropdown toggles).
+      // These links should not trigger page fetch or change the URL.
+      if (!href || href.startsWith("javascript:")) {
+        return;
       }
 
-      document.querySelectorAll(".nav-menu a").forEach(link => {
-        link.addEventListener("click", function (e) {
-          e.preventDefault();
-          const href = link.getAttribute("href").replace(/^\.\/|\/$/g, "");
+      const page = href || "about";
+      history.pushState(null, "", `./${page}`);
+      loadPage(page);
+    });
+  });
 
-          // Skip handling links that are not real navigation links
-          // (e.g., links with href="javascript:void(0);" used for dropdown toggles).
-          // These links should not trigger page fetch or change the URL.
-          if (!href || href.startsWith("javascript:")) {
-            return;
-          }
-
-          const page = href || "about";
-          history.pushState(null, "", `./${page}`);
-          loadPage(page);
-        });
-      });
-
-      const logoImg = document.getElementById("logo-img");
-      if (logoImg) {
-        logoImg.addEventListener("click", (e) => {
-          e.preventDefault();
-          const page = "about";
-          history.pushState(null, "", `./${page}`);
-          loadPage(page);
-        });
-      }
+  const logoImg = document.getElementById("logo-img");
+  if (logoImg) {
+    logoImg.addEventListener("click", (e) => {
+      e.preventDefault();
+      const page = "about";
+      history.pushState(null, "", `./${page}`);
+      loadPage(page);
+    });
+  }
 
   // Update footer year
   const yearSpan = document.getElementById("footer-year");
@@ -66,7 +66,7 @@ let currentPage = "";
 // 5. Universal page loader
 function loadPage(page) {
   if (currentPage === page) {
-    return; 
+    return;
   }
   currentPage = page;// avoid reload when clicking the same page
 
@@ -221,8 +221,9 @@ function loadPublicationsPage() {
   if (!container) return;
   container.innerHTML = "";
 
-  const filterButtons = document.querySelectorAll(".publication-filters button");
+  const filterButtons = document.querySelectorAll(".filter-button");
   const searchInput = document.getElementById("searchBox");
+  const clearBtn = document.getElementById("clearSearch"); // add clear btn
   let currentFilter = "All";
 
   fetch("publications.json")
@@ -263,26 +264,27 @@ function loadPublicationsPage() {
       });
 
       function filterPublications() {
-        const keyword = searchInput?.value.toLowerCase() || "";
+        const keyword = searchInput.value.trim().toLowerCase();
         const groups = document.querySelectorAll(".pub-group");
 
         groups.forEach(group => {
-          const groupYear = group.getAttribute("data-year");
           const items = group.querySelectorAll(".publication-item");
           let hasVisible = false;
 
           items.forEach(pub => {
             const type = pub.getAttribute("data-type");
-            const originalText = pub.innerText.toLowerCase();
+            const year = pub.getAttribute("data-year");
+            const text = pub.innerText.toLowerCase();
 
-            const matchesFilter = currentFilter === "All" || currentFilter === groupYear || currentFilter === type;
-            const matchesSearch = originalText.includes(keyword);
-            const shouldShow = matchesFilter && matchesSearch;
+            const matchTypeYear = (currentFilter === "All" || currentFilter === type || currentFilter === year);
+            const matchSearch = keyword === "" || text.includes(keyword);
 
-            pub.style.display = shouldShow ? "block" : "none";
-            if (shouldShow) hasVisible = true;
+            const show = matchTypeYear && matchSearch;
+            pub.style.display = show ? "block" : "none";
+            if (show) hasVisible = true;
 
-            if (matchesSearch && keyword.length > 0) {
+            // highlight keyword
+            if (matchSearch && keyword.length > 0) {
               const regex = new RegExp(`(${keyword})`, "gi");
               const cleanHTML = pub.innerHTML.replace(/<\/?mark>/gi, "");
               pub.innerHTML = cleanHTML.replace(regex, "<mark>$1</mark>");
@@ -304,8 +306,20 @@ function loadPublicationsPage() {
         });
       });
 
-      searchInput?.addEventListener("input", filterPublications);
-      filterPublications();
+      searchInput.addEventListener("input", () => {
+        clearBtn.style.display = searchInput.value.length > 0 ? "block" : "none";
+        filterPublications();
+      });
+
+      /* clear  */
+      clearBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        clearBtn.style.display = "none";
+        searchInput.focus();
+        filterPublications();
+      });
+
+      filterPublications(); 
     });
 }
 

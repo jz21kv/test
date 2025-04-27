@@ -72,22 +72,34 @@
     </div>
 
     <div class="filters">
-      <input type="text" id="searchBox" class="search-box" placeholder="Search">
-      <div class="publication-filters">
-        <button data-filter="All" class="active">All</button>
-        <button data-filter="Journal">Journal Papers</button>
-        <button data-filter="Conference">Conference Proceedings</button>
-        <button data-filter="2025">2025</button>
-        <button data-filter="2024">2024</button>
-        <button data-filter="2023">2023</button>
-        <button data-filter="2022">2022</button>
-        <button data-filter="2021">2021</button>
-        <button data-filter="2020">2020</button><!--may add "Earlier" filter if 2019, 2018... publications are needed-->
+
+        <div class="publication-filters-wrapper">
+          <div class="button-group">
+            <button data-filter="All" class="filter-button active">All</button>
+            <button data-filter="Journal" class="filter-button">Journal Papers</button>
+            <button data-filter="Conference" class="filter-button">Conference Proceedings</button>
+            <button data-filter="2025" class="filter-button">2025</button>
+            <button data-filter="2024" class="filter-button">2024</button>
+            <button data-filter="2023" class="filter-button">2023</button>
+            <button data-filter="2022" class="filter-button">2022</button>
+            <button data-filter="2021" class="filter-button">2021</button>
+            <button data-filter="2020" class="filter-button">2020</button>
+            <button data-filter="Others" class="filter-button">Others</button>
+          </div>
+        </div>
+
+        <div class="search-box-wrapper">
+          <div class="search-box-container">
+            <i class="bi bi-search search-icon"></i> <!--search icon-->
+            <input type="text" id="searchBox" class="search-box" placeholder="Search by keywords">
+            <i class="bi bi-x clear-icon" id="clearSearch" style="display: none;"></i><!--clear icon-->
       </div>
     </div>
 
+      </div>
     <div id="publicationContainer"></div>
     </main>
+  </div>
   </div>
 
   <!-- Javascript -->

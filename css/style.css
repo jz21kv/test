@@ -322,7 +322,7 @@ font-size: 24px;
 }
 
 /** filter **/
-.filters {
+/* .filters {
   text-align: left;
   margin-bottom: 10px;
 } 
@@ -346,7 +346,7 @@ font-size: 24px;
 }
 
 /** search box **/
-.search-box {
+/* .search-box {
   padding: 6px 12px;
   font-size: 14px;
   border-radius: 20px;
@@ -360,7 +360,7 @@ font-size: 24px;
 .search-box:focus {
   border-color: #4055b8;
   box-shadow: 0 0 0 2px rgba(64, 85, 184, 0.2);
-}  
+}   */ 
 
 /** resource **/
 .resource-list ul {
@@ -715,4 +715,92 @@ display: inline-block;
     width: 50%;
     height: auto;
   }
+}
+
+/* filtter */
+.filters {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* left align */
+  margin-top: 30px;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px; /* gap between btns */
+}
+
+.filter-button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px; 
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.filter-button:hover {
+  background-color: #4055b8;
+  color: #fff;
+  border-color: #4055b8;
+}
+
+.filter-button.active {
+  background-color: #4055b8;
+  color: #fff;
+  border-color: #4055b8;
+}
+
+.search-box-wrapper {
+  width: 100%;
+  max-width: 940px;
+  margin-top: 13px; /* space between search & filter */
+}
+
+.search-box-container {
+  position: relative;
+  width: 100%;
+  max-width: 940px;
+}
+
+.search-box {
+  width: 100%;
+  padding: 10px 36px 10px 36px; 
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.search-box:focus {
+  border-color: #4055b8;
+  box-shadow: 0 0 0 2px rgba(64, 85, 184, 0.2);
+}
+
+.search-icon,
+.clear-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+}
+
+.search-icon {
+  left: 12px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.clear-icon {
+  right: 12px;
+  color: #777777;
+  cursor: pointer;
+}
+
+.clear-icon:hover {
+  color: #4055b8;
 }
