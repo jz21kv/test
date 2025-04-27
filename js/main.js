@@ -1,5 +1,6 @@
+// Wait for the document to fully load
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. burger
+  // Handle burger menu toggle for mobile
   const burger = document.getElementById("burger-toggle");
   const navMenu = document.querySelector(".nav-menu");
   if (burger && navMenu) {
@@ -15,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
+  // Handle navigation clicks (prevent full reload)
   document.querySelectorAll(".nav-menu a").forEach(link => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       loadPage(page);
     });
   });
-
+  // Logo click to go back to home
   const logoImg = document.getElementById("logo-img");
   if (logoImg) {
     logoImg.addEventListener("click", (e) => {
@@ -44,18 +45,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Update footer year
+  // Update footer year dynamically
   const yearSpan = document.getElementById("footer-year");
   if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
   }
 
-  // 3. First Load the correct page
+  // Load the initial page
   const page = window.location.pathname.split("/").pop().replace(".html", "") || "about";
   loadPage(page);
 });
 
-// 4. Handle browser back/forward
+// Handle browser back/forward
 window.addEventListener("popstate", () => {
   const page = window.location.pathname.split("/").pop().replace(".html", "") || "about";
   loadPage(page);
@@ -63,7 +64,7 @@ window.addEventListener("popstate", () => {
 
 let currentPage = "";
 
-// 5. Universal page loader
+// Load the requested page dynamically
 function loadPage(page) {
   if (currentPage === page) {
     return;
@@ -87,12 +88,12 @@ function loadPage(page) {
       }
 
       setActiveNav(page);
-
+      // Load extra scripts for specific pages
       if (page === "students") loadStudentsPage();
       if (page === "publications") loadPublicationsPage();
       if (page === "contact") generateEmail();
 
-      // Close burger after navigation
+      // Close burger after page change
       const burger = document.getElementById("burger-toggle");
       const navMenu = document.querySelector(".nav-menu");
       if (burger?.classList.contains("active")) {
@@ -102,11 +103,11 @@ function loadPage(page) {
     })
     .catch(error => {
       console.error(error);
-      // fallback to about
-      loadPage("about");
+      loadPage("about"); // fallback to home
     });
 }
 
+// Set the active navigation link based on current page
 function setActiveNav(page) {
   const cleanPage = page.replace(".html", "");
 
@@ -127,6 +128,7 @@ function setActiveNav(page) {
   if (resourcePages.includes(cleanPage)) document.getElementById("resources-link")?.classList.add("active");
 }
 
+// Generate contact email dynamically
 function generateEmail() {
   const username = "yli2";
   const domain = "brocku.ca";
@@ -137,85 +139,77 @@ function generateEmail() {
   }
 }
 
-// 6. Students page
+// Load and render the Students page
 function loadStudentsPage() {
   fetch("students.json")
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
       const row = document.querySelector(".team .row");
+      row.innerHTML = "";
+
       data.students.forEach(student => {
         const card = document.createElement("div");
         card.className = "col-lg-6 mt-4";
-        // Set student photo to default if image is empty
-        const imgSrc = student.image && student.image.trim() !== "" ? student.image : "./img/team/default.png";
+
+        const imgSrc = student.image?.trim() || "./img/team/default.png";
         card.innerHTML = `
-        <div class="member d-flex align-items-start" data-role="${student.status} ${student.degree}">
-          <div class="teampic">
-            <img src="${imgSrc}" class="img-fluid" alt="${student.name}">
+          <div class="member d-flex align-items-start" data-role="${student.status} ${student.degree}">
+            <div class="teampic">
+              <img src="${imgSrc}" class="img-fluid" alt="${student.name}">
+            </div>
+            <div class="member-info">
+              <h4 class="student-name">${student.linkedin ? `<a href="${student.linkedin}" target="_blank">${student.name}</a>` : student.name}</h4>
+              <span>${student.degree}</span>
+              <p>${student.description || ""}</p>
+            </div>
           </div>
-          <div class="member-info">
-            <h4>${student.linkedin ? `<a href="${student.linkedin}" target="_blank">${student.name}</a>` : student.name}</h4>
-            <span>${student.degree}</span>
-            <p>${student.description || ""}</p>
-          </div>
-        </div>
-      `;
+        `;
         row.appendChild(card);
       });
 
-      const roleButtons = document.querySelectorAll(".role-filters button");
-      const letterButtons = document.querySelectorAll(".letter-filters a");
+      const filterButtons = document.querySelectorAll(".role-filters .filter-button");
+      const searchInput = document.getElementById("searchBox");
+      const clearBtn = document.getElementById("clearSearch");
       const members = document.querySelectorAll(".member");
 
-      let currentRole = "Current";
-      let currentLetter = "All";
+      let currentFilter = "Current";
 
-      function applyFilters() {
-        const subRoles = ["PhD", "Masters", "Undergraduate", "Visiting Researcher", "Other"];
+      // Filter students by role and search input
+      function filterStudents() {
+        const keyword = searchInput.value.trim().toLowerCase();
 
         members.forEach(member => {
-          const roles = (member.getAttribute("data-role") || "").split(" ");
-          const status = roles[0];
-          const degree = roles[1];
-          const name = member.querySelector("h4")?.innerText.trim().toUpperCase() || "";
-          const firstLetter = name.charAt(0);
+          const [status, degree] = (member.getAttribute("data-role") || "").split(" ");
+          const nameElement = member.querySelector(".student-name");
+          const nameText = nameElement.textContent.trim().toLowerCase();
 
-          let roleMatch = false;
-          if (currentRole === "All") roleMatch = true;
-          else if (currentRole === "Alumni") roleMatch = status === "Alumni";
-          else if (subRoles.includes(currentRole)) roleMatch = status === "Current" && degree === currentRole;
-          else if (currentRole === "Current") roleMatch = status === "Current";
+          const roleMatch = currentFilter === "All" || (currentFilter === "Alumni" && status === "Alumni") || (status === "Current" && (degree === currentFilter || currentFilter === "Current"));
+          const searchMatch = keyword === "" || nameText.includes(keyword);
 
-          const letterMatch = currentLetter === "All" || firstLetter === currentLetter;
-          member.parentElement.style.display = roleMatch && letterMatch ? "block" : "none";
+          member.parentElement.style.display = roleMatch && searchMatch ? "block" : "none";
+
+          // Highlight matched text
+          if (searchMatch && keyword.length > 0) {
+            highlightElementText(nameElement, keyword, true);
+          } else {
+            const clean = nameElement.innerHTML.replace(/<\/?mark>/gi, "");
+            nameElement.innerHTML = clean;
+          }
         });
       }
 
-      roleButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-          roleButtons.forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
-          currentRole = btn.getAttribute("data-filter");
-          applyFilters();
-        });
+      setupFilterButtons(filterButtons, () => {
+        currentFilter = document.querySelector(".role-filters .filter-button.active")?.getAttribute("data-filter") || "Current";
+        filterStudents();
       });
 
-      letterButtons.forEach(btn => {
-        btn.addEventListener("click", e => {
-          e.preventDefault();
-          letterButtons.forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
-          currentLetter = btn.getAttribute("data-letter");
-          applyFilters();
-        });
-      });
+      setupSearchClear(searchInput, clearBtn, filterStudents);
 
-      applyFilters();
+      filterStudents();
     });
-
 }
 
-// 7. Publications page
+// Load and render the Publications page
 function loadPublicationsPage() {
   const container = document.getElementById("publicationContainer");
   if (!container) return;
@@ -223,13 +217,16 @@ function loadPublicationsPage() {
 
   const filterButtons = document.querySelectorAll(".filter-button");
   const searchInput = document.getElementById("searchBox");
-  const clearBtn = document.getElementById("clearSearch"); // add clear btn
+  const clearBtn = document.getElementById("clearSearch");
+
   let currentFilter = "All";
 
   fetch("publications.json")
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
       const grouped = {};
+
+      // Group publications by year
       data.publications.forEach(pub => {
         if (!grouped[pub.year]) grouped[pub.year] = [];
         grouped[pub.year].push(pub);
@@ -240,10 +237,7 @@ function loadPublicationsPage() {
         group.className = "pub-group";
         group.setAttribute("data-year", year);
 
-        const heading = document.createElement("h3");
-        heading.className = "pub-year";
-        heading.textContent = year;
-        group.appendChild(heading);
+        group.innerHTML = `<h3 class="pub-year">${year}</h3>`;
 
         grouped[year].forEach(pub => {
           const item = document.createElement("div");
@@ -251,23 +245,21 @@ function loadPublicationsPage() {
           item.setAttribute("data-year", pub.year);
           item.setAttribute("data-type", pub.type);
 
-          const p = document.createElement("p");
-          p.innerHTML = `${pub.authors},<br>
-              <a href="${pub.link}" target="_blank" class="pub-title">"${pub.title}"</a>,
-              <em>${pub.venue}</em>, ${pub.date}${pub.pages ? ", " + pub.pages : ""}${pub.note ? ", " + pub.note : ""}.`;
+          item.innerHTML = `<p>${pub.authors},<br><a href="${pub.link}" target="_blank" class="pub-title">"${pub.title}"</a>, <em>${pub.venue}</em>, ${pub.date}${pub.pages ? ", " + pub.pages : ""}${pub.note ? ", " + pub.note : ""}.</p>`;
 
-          item.appendChild(p);
           group.appendChild(item);
         });
 
         container.appendChild(group);
       });
 
+      const pubGroups = document.querySelectorAll(".pub-group");
+
+      // Filter publications by type, year, and search
       function filterPublications() {
         const keyword = searchInput.value.trim().toLowerCase();
-        const groups = document.querySelectorAll(".pub-group");
 
-        groups.forEach(group => {
+        pubGroups.forEach(group => {
           const items = group.querySelectorAll(".publication-item");
           let hasVisible = false;
 
@@ -283,11 +275,8 @@ function loadPublicationsPage() {
             pub.style.display = show ? "block" : "none";
             if (show) hasVisible = true;
 
-            // highlight keyword
             if (matchSearch && keyword.length > 0) {
-              const regex = new RegExp(`(${keyword})`, "gi");
-              const cleanHTML = pub.innerHTML.replace(/<\/?mark>/gi, "");
-              pub.innerHTML = cleanHTML.replace(regex, "<mark>$1</mark>");
+              highlightElementText(pub, keyword);
             } else {
               pub.innerHTML = pub.innerHTML.replace(/<\/?mark>/gi, "");
             }
@@ -297,34 +286,59 @@ function loadPublicationsPage() {
         });
       }
 
-      filterButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-          filterButtons.forEach(b => b.classList.remove("active"));
-          btn.classList.add("active");
-          currentFilter = btn.getAttribute("data-filter");
-          filterPublications();
-        });
-      });
-
-      searchInput.addEventListener("input", () => {
-        clearBtn.style.display = searchInput.value.length > 0 ? "block" : "none";
+      setupFilterButtons(filterButtons, () => {
+        currentFilter = document.querySelector(".filter-button.active")?.getAttribute("data-filter") || "All";
         filterPublications();
       });
 
-      /* clear  */
-      clearBtn.addEventListener("click", () => {
-        searchInput.value = "";
-        clearBtn.style.display = "none";
-        searchInput.focus();
-        filterPublications();
-      });
+      setupSearchClear(searchInput, clearBtn, filterPublications);
 
-      filterPublications(); 
+      filterPublications();
     });
 }
 
-// 8. back to top
+// Show/hide back-to-top button based on scroll position
 window.addEventListener("scroll", function () {
   const backToTop = document.querySelector(".back-to-top");
   backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
 });
+
+// Setup search box and clear button 
+function setupSearchClear(searchInput, clearBtn, onFilter) {
+  searchInput.addEventListener("input", () => {
+    clearBtn.style.display = searchInput.value.length > 0 ? "block" : "none";
+    onFilter();
+  });
+
+  clearBtn.addEventListener("click", () => {
+    searchInput.value = "";
+    clearBtn.style.display = "none";
+    searchInput.focus();
+    onFilter();
+  });
+}
+// Setup filter button
+function setupFilterButtons(buttons, onFilter) {
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      onFilter();
+    });
+  });
+}
+
+// Highlight matching keyword in element text
+function highlightElementText(element, keyword, isLink = false) {
+  if (!element) return;
+  const regex = new RegExp(`(${keyword})`, "gi");
+  const cleanHTML = element.innerHTML.replace(/<\/?mark>/gi, "");
+
+  if (isLink && element.querySelector("a")) {
+    const link = element.querySelector("a");
+    const cleanText = link.textContent;
+    link.innerHTML = cleanText.replace(regex, "<mark>$1</mark>");
+  } else {
+    element.innerHTML = cleanHTML.replace(regex, "<mark>$1</mark>");
+  }
+}

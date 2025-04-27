@@ -321,47 +321,6 @@ font-weight: 500;
 font-size: 24px;
 }
 
-/** filter **/
-/* .filters {
-  text-align: left;
-  margin-bottom: 10px;
-} 
-
-.letter-filters {
-  margin-top: 20px;
-}
-
-.letter-filters a {
-  margin: 0 6px;
-  text-decoration: none;
-  color: #111;
-  font-weight: 500;
-  font-size: 15px;
-  transition: 0.2s;
-}
-
-.letter-filters a.active {
-  color: #4055b8;
-  border-bottom: 2px solid #003366;
-}
-
-/** search box **/
-/* .search-box {
-  padding: 6px 12px;
-  font-size: 14px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  outline: none;
-  margin-bottom: 15px;
-  margin-right: 10px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.search-box:focus {
-  border-color: #4055b8;
-  box-shadow: 0 0 0 2px rgba(64, 85, 184, 0.2);
-}   */ 
-
 /** resource **/
 .resource-list ul {
   list-style: none;
@@ -384,32 +343,6 @@ font-size: 24px;
 /** publications **/
 .publication-item {
   margin-top: 20px;
-}
-
-.role-filters button,
-.publication-filters button {
-  border: none;
-  outline: none;
-  background: #eee;
-  color: #333;
-  border-radius: 20px;
-  padding: 8px 16px;
-  margin: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: 0.3s;
-}
-
-.role-filters button.active,
-.publication-filters button.active {
-  background: #4055b8;
-  color: white;
-}
-
-.role-filters button:hover,
-.publication-filters button:hover {
-  background-color: #4055b8;
-  color: white;
 }
 
 /** publication's articles **/
@@ -756,14 +689,14 @@ display: inline-block;
 
 .search-box-wrapper {
   width: 100%;
-  max-width: 940px;
+  max-width: 1000px;
   margin-top: 13px; /* space between search & filter */
 }
 
 .search-box-container {
   position: relative;
   width: 100%;
-  max-width: 940px;
+  max-width: 1000px;
 }
 
 .search-box {

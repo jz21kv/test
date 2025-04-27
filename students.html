@@ -75,51 +75,32 @@
           <div class="section-title">
             <h2>Students</h2>
           </div>
+
           <div class="filters">
             <div class="role-filters">
-              <button class="active" data-filter="Current">Current</button>
-              <button data-filter="All">All</button>
-              <button data-filter="PhD">PhD</button>
-              <button data-filter="Masters">Masters</button>
-              <button data-filter="Undergraduate">Undergraduate</button>
-              <button data-filter="Visiting Researcher">Visiting Researcher</button>
-              <button data-filter="Alumni">Alumni</button>
-              <button data-filter="Other">Other</button>
+              <div class="button-group">
+                <button data-filter="Current" class="filter-button active">Current</button>
+                <button data-filter="All" class="filter-button">All</button>
+                <button data-filter="PhD" class="filter-button">PhD</button>
+                <button data-filter="Masters" class="filter-button">Masters</button>
+                <button data-filter="Undergraduate" class="filter-button">Undergraduate</button>
+                <button data-filter="Visiting Researcher" class="filter-button">Visiting Researcher</button>
+                <button data-filter="Alumni" class="filter-button">Alumni</button>
+                <button data-filter="Other" class="filter-button">Other</button>
+              </div>
             </div>
 
-            <div class="letter-filters">
-              <a href="#" data-letter="All" class="active">All</a>
-              <a href="#" data-letter="A">A</a>
-              <a href="#" data-letter="B">B</a>
-              <a href="#" data-letter="C">C</a>
-              <a href="#" data-letter="D">D</a>
-              <a href="#" data-letter="E">E</a>
-              <a href="#" data-letter="F">F</a>
-              <a href="#" data-letter="G">G</a>
-              <a href="#" data-letter="H">H</a>
-              <a href="#" data-letter="I">I</a>
-              <a href="#" data-letter="J">J</a>
-              <a href="#" data-letter="K">K</a>
-              <a href="#" data-letter="L">L</a>
-              <a href="#" data-letter="M">M</a>
-              <a href="#" data-letter="N">N</a>
-              <a href="#" data-letter="O">O</a>
-              <a href="#" data-letter="P">P</a>
-              <a href="#" data-letter="Q">Q</a>
-              <a href="#" data-letter="R">R</a>
-              <a href="#" data-letter="S">S</a>
-              <a href="#" data-letter="T">T</a>
-              <a href="#" data-letter="U">U</a>
-              <a href="#" data-letter="V">V</a>
-              <a href="#" data-letter="W">W</a>
-              <a href="#" data-letter="X">X</a>
-              <a href="#" data-letter="Y">Y</a>
-              <a href="#" data-letter="Z">Z</a>
+            <div class="search-box-wrapper">
+              <div class="search-box-container">
+                <i class="bi bi-search search-icon"></i> <!--search icon-->
+                <input type="text" id="searchBox" class="search-box" placeholder="Search by keywords">
+                <i class="bi bi-x clear-icon" id="clearSearch" style="display: none;"></i><!--clear icon-->
+              </div>
             </div>
           </div>
 
           <div class="row"></div>
-        </div>
+          
       </section>
     </main>
   </div>
