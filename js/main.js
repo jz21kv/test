@@ -1,5 +1,5 @@
 // Global variable for Three.js animation script path
-const threeScriptPath = 'assets/index-W9yEj0wK.js';
+const threeScriptPath = 'assets/index-DYQf9W6Q.js';
 
 // Wait for the document to fully load
 document.addEventListener("DOMContentLoaded", () => {

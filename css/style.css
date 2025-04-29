@@ -645,6 +645,9 @@ body {
   /* total height - menu height */
   z-index: -1;
   pointer-events: none;
+  /* Fade in effect */
+  opacity: 0; 
+  transition: opacity 0.4s ease-in-out;
 }
 
 #content {
