@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
       history.pushState(null, "", "/test/");  // push to /test/ 
       loadPage("index");
     });
-  }
+  }  
 
   // Update footer year dynamically
   const yearSpan = document.getElementById("footer-year");
