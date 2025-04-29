@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (logoImg) {
     logoImg.addEventListener("click", (e) => {
       e.preventDefault();
-      history.pushState(null, "", "/test/");  // push to /test/ 
+      history.pushState(null, "", "/");  // push to /, back to https://www.bmds-lab.com/
       loadPage("index");
     });
   }  
