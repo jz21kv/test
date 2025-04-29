@@ -55,9 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (logoImg) {
     logoImg.addEventListener("click", (e) => {
       e.preventDefault();
-      const page = "index";
-      history.pushState(null, "", `./${page}`);
-      loadPage(page);
+      history.pushState(null, "", "/test/");  // push to /test/ 
+      loadPage("index");
     });
   }
 
@@ -386,7 +385,7 @@ function handleThreeJS(page) {
 
   if (page === "index") {
     if (!existingScript) {
-       // If the DNA script is missing (e.g., after refresh page), reload it
+      // If the DNA script is missing (e.g., after refresh page), reload it
       const script = document.createElement('script');
       script.type = 'module';
       script.src = threeScriptPath;
