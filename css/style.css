@@ -1,9 +1,55 @@
+/* google fonots */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 /********** General CSS **********/
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #333;
-  font-weight: 590;
-  background: #ffffff;
+  font-weight: 400;
+  background: transparent;
+  position: relative;
+  overflow-x: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Add frosted glass background */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: -1;
+}
+
+/* Special styles when on homepage */
+body.homepage {
+  background-color: hsla(254, 16%, 85%, 1);
+  background-image:
+    url('../img/background/noisy_texture.png'),
+    radial-gradient(at 0% 32%, hsla(214, 25%, 79%, 1) 0px, transparent 50%),
+    radial-gradient(at 52% 45%, hsla(254, 14%, 83%, 1) 0px, transparent 50%),
+    radial-gradient(at 4% 99%, hsla(246, 9%, 80%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 57%, hsla(211, 31%, 82%, 1) 0px, transparent 50%);
+  background-repeat: repeat;
+  background-size: auto;
+}
+
+/* Hide the frosted glass layer for homepage */
+body.homepage::before {
+  display: none;
+}
+
+/* Homepage nav override */
+body.homepage #nav {
+  background: transparent;
+  /* Make nav transparent on homepage */
 }
 
 html {
@@ -58,8 +104,8 @@ h6 {
 
 /* logo 1 & 2 & 3*/
 .logo-img {
-  height: 80px;           
-  width: auto;            
+  height: 80px;
+  width: auto;
   object-fit: contain;
   cursor: pointer;
   margin-top: -14px;
@@ -72,8 +118,10 @@ h6 {
   left: 0;
   top: 0;
   right: 0;
-  background: #ffffff;
+  background: hsla(254, 16%, 95%, 1);
   transition: all 0.5s;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 9;
 }
 
@@ -105,9 +153,8 @@ h6 {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  font-weight: 500;
   outline: none;
-  position: relative; 
+  position: relative;
   color: #003366;
 }
 
@@ -142,11 +189,14 @@ h6 {
   position: absolute;
   top: 100%;
   left: 0;
-  background: white;
   padding: 0;
   z-index: 999;
   text-align: left;
   min-width: 120px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 6px;
 }
 
 .nav-menu li .dropdown-content li {
@@ -155,7 +205,7 @@ h6 {
 }
 
 .nav-menu li .dropdown-content li:nth-child(1) {
-  margin-bottom: 0px;  
+  margin-bottom: 0px;
 }
 
 .nav-menu li .dropdown-content a {
@@ -163,7 +213,6 @@ h6 {
   padding: 2px 5px;
   color: #003366;
   font-size: 16px;
-  font-weight: 500;
   text-decoration: none;
   white-space: nowrap;
   line-height: 1;
@@ -207,7 +256,7 @@ h6 {
 }
 
 .team .member .teampic {
-  width: 120px; 
+  width: 120px;
   height: 120px;
   flex-shrink: 0;
   border-radius: 50%;
@@ -225,11 +274,10 @@ h6 {
   padding-left: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
 }
 
 .team .member h4 {
-  font-weight: 100;
   font-size: 18px;
   color: #003366;
   margin-bottom: 5px;
@@ -237,7 +285,6 @@ h6 {
 
 .team .member span {
   font-size: 14px;
-  font-weight: 500;
   margin-bottom: 8px;
   position: relative;
 }
@@ -280,22 +327,23 @@ h6 {
 .team .member .social a.disabled i {
   opacity: 0.3;
   filter: grayscale(100%);
-}  
+}
 
 .team .member .social a i {
   color: #003366;
   font-size: 16px;
   margin: 0 2px;
 }
+
 .team .member .social a:hover {
-  background: tomato;
+  background: hsla(254, 16%, 65%, 1);;
 }
 
 .team .member .social a:hover i {
   color: white;
 }
 
-.team .member .social a + a {
+.team .member .social a+a {
   margin-left: 8px;
 }
 
@@ -306,9 +354,9 @@ section {
 
 .section-title {
   text-align: left;
-  margin-top: 140px;     
-  margin-bottom: 10px;   
-  padding-bottom: 0;     
+  margin-top: 140px;
+  margin-bottom: 10px;
+  padding-bottom: 0;
 }
 
 section.team {
@@ -316,9 +364,9 @@ section.team {
 }
 
 .section-title h2 {
-color: #003366;
-font-weight: 500;
-font-size: 24px;
+  color: #003366;
+  font-weight: 500;
+  font-size: 24px;
 }
 
 /** resource **/
@@ -376,7 +424,7 @@ font-size: 24px;
 
 .pub-title:hover {
   color: #4055b8;
-}  
+}
 
 /** highlight search filter **/
 mark {
@@ -385,290 +433,137 @@ mark {
   border-radius: 2px;
 }
 
-/** footer **/
-html, body {
-height: 100%;
-margin: 0;
-display: flex;
-flex-direction: column;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .wrapper {
-flex: 1;
-display: flex;
-flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
-
-#footer-placeholder {
-background-color: #fff;
-text-align: center;
-padding: 20px 0;
-font-size: 14px;
-color: #666;
-flex-shrink: 0;
-}  
 
 /* Back to Top Button */
 .back-to-top {
-position: fixed;
-bottom: 30px;
-right: 30px;
-width: 48px;
-height: 48px;
-background-color: #003366;
-color: white;
-border-radius: 50%;
-display: none; 
-align-items: center;
-justify-content: center;
-z-index: 999;
-font-size: 20px;
-transition: opacity 0.3s ease;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  background-color: #003366;
+  color: white;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  font-size: 20px;
+  transition: opacity 0.3s ease;
 }
 
 .back-to-top:hover {
-background-color: #4055b8;
-text-decoration: none;
-color: white;
+  background-color: #4055b8;
+  text-decoration: none;
+  color: white;
 }
 
 /** contact & admission **/
 .admission-block p strong,
 .contact p strong {
-color: #1a3c8b; 
-font-weight: 600;
+  color: #1a3c8b;
+  font-weight: 500;
 }
 
 .admission-block p,
 .contact p {
-color: #1a1a1a; 
-line-height: 1.6;
+  color: #1a1a1a;
+  line-height: 1.6;
 }
 
 .admission-block a,
 .contact a {
-color: #1a1a1a;
-text-decoration: none;
+  color: #1a1a1a;
+  text-decoration: none;
 }
 
 .admission-title,
 .professor-name {
-margin-top: 50px;  
-margin-bottom: 30px;  
+  margin-top: 50px;
+  margin-bottom: 30px;
 }
 
 /** about page **/
 .blue-text {
-color: #1a3c8b;
-font-weight: 500;
+  color: #1a3c8b;
+  font-weight: 500;
 }
 
 .red-text {
-color: #b03030;
-font-weight: 500;
+  color: #b03030;
+  font-weight: 500;
 }
 
 .research-topic {
-margin-top: 40px;
-margin-bottom: 30px; 
-padding: 0;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  padding: 0;
 }
 
 /** image in about page **/
 .image-block {
-margin: 2rem 0;            
-text-align: center;        
+  margin: 2rem 0;
+  text-align: center;
 }
 
 .image-block img {
-max-width: 70%;
-height: auto;
-display: inline-block;   
+  max-width: 70%;
+  height: auto;
+  display: inline-block;
 }
 
 /** Make image blocks display side by side (About page) **/
 .image-wrapper {
-  text-align: center;  
-  margin-top: 20px;    
+  text-align: center;
+  margin-top: 20px;
 }
 
 .image-side-by-side {
   display: inline-block;
-  margin-right: 70px; 
+  margin-right: 70px;
   margin-left: 70px;
 }
 
 .image-side-by-side img {
-  width: 200px; 
+  width: 200px;
   height: auto;
-}
-
-/* default burger */
-.burger {
-  display: none;
-  position: absolute;
-  top: 16px;
-  right: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 1001;
-}
-
-.burger svg {
-  fill: #003366;
-  transition: transform 0.3s ease;
-  transform-origin: center;
-}
-
-.burger.active svg {
-  transform: rotate(90deg);
-}
-
-/* Default footer */
-.footer {
-  background-color: #fff;
-  text-align: center;
-  padding: 20px 0;
-  font-size: 14px;
-}
-
-/* Footer uses the light gray */
-.footer p {
-  color: #666;
-}
-
-/* Tablet + Mobile */
-@media (max-width: 1023px) {
-  .burger {
-    display: block;
-  }
-
-  .burger svg {
-    width: 40px;
-    height: 40px;
-  }
-
-  .nav-menu {
-    display: none;
-    flex-direction: column;
-    background: white;
-    position: absolute;
-    top: 30px;
-    right: 0;
-    width: 240px;
-    padding: 15px 25px;
-    z-index: 1000;
-    gap: 2px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    max-height: 80vh;
-    overflow-y: auto;
-    border-radius: 8px;
-  }
-
-  .nav-menu.active {
-    display: flex;
-  }
-
-  .nav-menu a {
-    display: inline-block;
-    width: fit-content;
-    position: relative;
-  }
-
-  .nav-menu li {
-    float: none;
-    margin: 4px 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .nav-menu li > a {
-    display: block;
-    padding: 3px 0;
-    font-size: 15px;
-  }
-
-  .nav-menu .dropdown .dropdown-content {
-    display: block !important;
-    position: relative;
-    background: transparent;
-    box-shadow: none;
-    padding-left: 15px;
-    margin-top: 4px;
-  }
-
-  .nav-menu .dropdown-content li {
-    display: block;
-    margin: 10px 0;
-  }
-
-  .nav-menu .dropdown-content a {
-    display: block;
-    font-size: 13.5px;
-    padding: 3px 0;
-  }
-}
-
-/* Mobile overrides */
-@media (max-width: 767px) {
-  .burger svg {
-    width: 35px;
-    height: 35px;
-  }
-
-  .nav-menu {
-    gap: 0;
-  }
-
-  /* smaller logo size */
-  .logo-img {
-    height: 60px; 
-    width: auto;
-  }
-
-   /* smaller footer */
-   .footer {
-    font-size: 12px; 
-  }
-
-  /* Force side-by-side image layout on mobile */
-  .image-wrapper {
-    display: flex;
-    justify-content: center;
-    flex-wrap: nowrap;
-  }
-
-  .image-side-by-side {
-    margin: 0;            
-    flex: 1 1 0;      
-  }
-
-  .image-side-by-side img {
-    width: 50%;
-    height: auto;
-  }
 }
 
 /* filtter */
 .filters {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* left align */
+  align-items: flex-start;
+  /* left align */
   margin-top: 30px;
 }
 
 .button-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px; /* gap between btns */
+  gap: 4px;
+  /* gap between btns */
 }
 
 .filter-button {
   padding: 8px 16px;
   font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 6px; 
+  border-radius: 6px;
   background-color: #fff;
   color: #333;
   cursor: pointer;
@@ -690,7 +585,8 @@ display: inline-block;
 .search-box-wrapper {
   width: 100%;
   max-width: 1000px;
-  margin-top: 13px; /* space between search & filter */
+  margin-top: 13px;
+  /* space between search & filter */
 }
 
 .search-box-container {
@@ -701,7 +597,7 @@ display: inline-block;
 
 .search-box {
   width: 100%;
-  padding: 10px 36px 10px 36px; 
+  padding: 10px 36px 10px 36px;
   font-size: 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -736,4 +632,249 @@ display: inline-block;
 
 .clear-icon:hover {
   color: #4055b8;
+}
+
+#three-container {
+  position: fixed;
+  top: 92px;
+  /* menu height */
+  left: 0;
+  width: 100%;
+  height: calc(100% - 92px);
+  /* total height - menu height */
+  z-index: -1;
+  pointer-events: none;
+}
+
+#content {
+  position: relative;
+  z-index: 1;
+  padding-top: 20px;
+}
+
+.home-intro h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-top: 230px; /* space between nav */
+  margin-bottom: 30px;
+  color: #003366;
+}
+
+.home-intro h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  color: #555;
+}
+
+main#content h2 {
+  font-size: 24px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 40px;
+  margin-top: -10px;
+}
+
+/* default burger */
+.burger {
+  display: none;
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.burger svg {
+  fill: #003366;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.burger.active svg {
+  transform: rotate(90deg);
+}
+
+/* footer */
+.footer {
+  background: hsla(254, 16%, 95%, 1);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: none;
+}
+
+/* Footer uses the light gray */
+.footer p {
+  color: #666;
+}
+
+/* Tablet + Mobile */
+@media (max-width: 1023px) {
+  .burger {
+    display: block;
+  }
+
+  .burger svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    background: white;
+    position: absolute;
+    top: 37px;
+    right: 0;
+    width: 240px;
+    padding: 15px 25px;
+    z-index: 1000;
+    gap: 2px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 8px;
+  }
+
+  .nav-menu.active {
+    display: flex;
+  }
+
+  .nav-menu a {
+    display: inline-block;
+    width: fit-content;
+    position: relative;
+  }
+
+  .nav-menu li {
+    float: none;
+    margin: 4px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-menu li>a {
+    display: block;
+    padding: 3px 0;
+    font-size: 15px;
+  }
+
+  .nav-menu .dropdown .dropdown-content {
+    display: block !important;
+    position: relative;
+    background: transparent;
+    box-shadow: none;
+    padding-left: 15px;
+    margin-top: 4px;
+  }
+
+  .nav-menu .dropdown-content li {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .nav-menu .dropdown-content a {
+    display: block;
+    font-size: 13.5px;
+    padding: 3px 0;
+  }
+}
+
+/* Mobile overrides */
+@media (max-width: 767px) {
+  .burger svg {
+    width: 35px;
+    height: 35px;
+  }
+
+  .nav-menu {
+    top: 53px;
+    gap: 0;
+  }
+
+  main#content h2 {
+    margin-bottom: 20px;
+    margin-top: -40px;
+  }
+
+  /* smaller logo size */
+  .logo-img {
+    height: 60px;
+    width: auto;
+    margin-top: -2.5px;
+  }
+
+  /* smaller footer */
+  .footer {
+    font-size: 12px;
+    padding: 10px 0;
+  }
+
+  .section-title h2 {
+    margin-top: 50px;
+  }
+  
+  .section-title h1,
+  .section-title h3,
+  .section-title h4,
+  .section-title h5,
+  .section-title h6 {
+    margin-top: 50px;
+  }  
+
+  #nav,
+  body.homepage #nav {
+    height: 70px;
+    padding: 8px 0;
+  }
+
+  #three-container {
+    top: 60px;
+    height: calc(100% - 60px);
+  }
+
+  /* Force side-by-side image layout on mobile */
+  .image-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+
+  .image-side-by-side {
+    margin: 0;
+    flex: 1 1 0;
+  }
+
+  .image-side-by-side img {
+    width: 50%;
+    height: auto;
+  }
+
+  .home-intro {
+    padding-top: 250px;
+    padding-bottom: 80px;
+  }
+
+  .home-intro h1 {
+    font-size: 32px;
+    margin-top: 0; 
+    margin-bottom: 20px;
+  }
+  
+  .home-intro h2 {
+    font-size: 18px;
+    margin-top: 50px;
+    margin-bottom: 40px;
+  }
+  .intro-text {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; 
+  }
 }

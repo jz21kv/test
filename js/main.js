@@ -1,14 +1,20 @@
+// Global variable for Three.js animation script path
+const threeScriptPath = 'assets/index-W9yEj0wK.js';
+
 // Wait for the document to fully load
 document.addEventListener("DOMContentLoaded", () => {
   // Handle burger menu toggle for mobile
   const burger = document.getElementById("burger-toggle");
   const navMenu = document.querySelector(".nav-menu");
+
   if (burger && navMenu) {
+    // Toggle menu on burger click
     burger.addEventListener("click", () => {
       navMenu.classList.toggle("active");
       burger.classList.toggle("active");
     });
 
+    // Close menu when clicking outside
     document.addEventListener("click", (e) => {
       if (!navMenu.contains(e.target) && !burger.contains(e.target)) {
         navMenu.classList.remove("active");
@@ -16,6 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // Load Three.js animation only on home page
+  if (window.location.pathname.endsWith("/") || window.location.pathname.endsWith("/index.html")) {
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.src = threeScriptPath;
+    document.body.appendChild(script);
+  }
+
   // Handle navigation clicks (prevent full reload)
   document.querySelectorAll(".nav-menu a").forEach(link => {
     link.addEventListener("click", function (e) {
@@ -29,17 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const page = href || "about";
+      const page = href || "index";
       history.pushState(null, "", `./${page}`);
       loadPage(page);
     });
   });
-  // Logo click to go back to home
+
+  // Logo click to navigate to home page
   const logoImg = document.getElementById("logo-img");
   if (logoImg) {
     logoImg.addEventListener("click", (e) => {
       e.preventDefault();
-      const page = "about";
+      const page = "index";
       history.pushState(null, "", `./${page}`);
       loadPage(page);
     });
@@ -51,25 +67,26 @@ document.addEventListener("DOMContentLoaded", () => {
     yearSpan.textContent = new Date().getFullYear();
   }
 
-  // Load the initial page
-  const page = window.location.pathname.split("/").pop().replace(".html", "") || "about";
+  // Load the initial page on start up
+  const page = window.location.pathname.split("/").pop().replace(".html", "") || "index";
   loadPage(page);
 });
 
-// Handle browser back/forward
+// Handle browser back/forward button navigation (<- and ->, next to refresh page)
 window.addEventListener("popstate", () => {
-  const page = window.location.pathname.split("/").pop().replace(".html", "") || "about";
+  const page = window.location.pathname.split("/").pop().replace(".html", "") || "index";
   loadPage(page);
 });
 
+// Track the currently loaded page to avoid redundant reloads
 let currentPage = "";
 
 // Load the requested page dynamically
 function loadPage(page) {
   if (currentPage === page) {
-    return;
+    return;// Prevent reloading the same page
   }
-  currentPage = page;// avoid reload when clicking the same page
+  currentPage = page;
 
   fetch(`${page}.html`)
     .then(res => {
@@ -87,23 +104,42 @@ function loadPage(page) {
         document.getElementById("content").innerHTML = html;
       }
 
+      // Update the body class based on the current page
+      // This controls background and nav style (homepage vs other pages)
+      if (page === "index") {
+        document.body.classList.add("homepage"); // Add homepage class on home page
+      } else {
+        document.body.classList.remove("homepage"); // Remove homepage class on other pages
+      }
+
+      // Update active nav link
       setActiveNav(page);
-      // Load extra scripts for specific pages
+
+      // Load additional page-specific content
       if (page === "students") loadStudentsPage();
       if (page === "publications") loadPublicationsPage();
       if (page === "contact") generateEmail();
 
-      // Close burger after page change
+      // Close burger menu if it's open
       const burger = document.getElementById("burger-toggle");
       const navMenu = document.querySelector(".nav-menu");
       if (burger?.classList.contains("active")) {
         burger.classList.remove("active");
         navMenu?.classList.remove("active");
       }
+
+      // Handle optional page-specific features
+      handleThreeJS(page);
+      handleFooter(page);
+
+      // Force reflow animation
+      document.body.style.display = 'none';
+      document.body.offsetHeight;
+      document.body.style.display = 'flex';
     })
     .catch(error => {
       console.error(error);
-      loadPage("about"); // fallback to home
+      loadPage("about"); // fallback page if load fails
     });
 }
 
@@ -340,5 +376,46 @@ function highlightElementText(element, keyword, isLink = false) {
     link.innerHTML = cleanText.replace(regex, "<mark>$1</mark>");
   } else {
     element.innerHTML = cleanHTML.replace(regex, "<mark>$1</mark>");
+  }
+}
+
+// Dynamically load/unload the Three.js DNA animation based on the page
+function handleThreeJS(page) {
+  let existingScript = document.querySelector(`script[src="${threeScriptPath}"]`);
+  const threeContainer = document.getElementById("three-container");
+
+  if (page === "index") {
+    if (!existingScript) {
+       // If the DNA script is missing (e.g., after refresh page), reload it
+      const script = document.createElement('script');
+      script.type = 'module';
+      script.src = threeScriptPath;
+      script.onload = () => {
+        console.log('Three.js DNA script loaded.');
+      };
+      document.body.appendChild(script);
+    }
+
+    //show the DNA container
+    if (threeContainer) {
+      threeContainer.style.display = "block";
+    }
+  } else {
+    // Hide the DNA container on non-home pages
+    if (threeContainer) {
+      threeContainer.style.display = "none";
+    }
+  }
+}
+
+// Show or hide the footer depending on the current page
+function handleFooter(page) {
+  const footer = document.querySelector(".footer");
+  if (!footer) return;
+
+  if (page === "index" || page === "") {
+    footer.style.display = "none"; // Hide footer on the home page
+  } else {
+    footer.style.display = "block"; // Show footer on other pages
   }
 }
