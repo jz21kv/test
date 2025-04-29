@@ -380,27 +380,26 @@ function highlightElementText(element, keyword, isLink = false) {
 
 // Dynamically load/unload the Three.js DNA animation based on the page
 function handleThreeJS(page) {
-  let existingScript = document.querySelector(`script[src="${threeScriptPath}"]`);
   const threeContainer = document.getElementById("three-container");
 
   if (page === "index") {
-    if (!existingScript) {
-      // If the DNA script is missing (e.g., after refresh page), reload it
-      const script = document.createElement('script');
-      script.type = 'module';
-      script.src = threeScriptPath;
-      script.onload = () => {
-        console.log('Three.js DNA script loaded.');
-      };
-      document.body.appendChild(script);
-    }
-
-    //show the DNA container
     if (threeContainer) {
       threeContainer.style.display = "block";
     }
+
+    // Always remove old Three.js script if exists
+    const oldScript = document.querySelector(`script[src="${threeScriptPath}"]`);
+    if (oldScript) {
+      oldScript.remove();
+    }
+
+    // Reload the Three.js DNA script
+    const newScript = document.createElement('script');
+    newScript.type = 'module';
+    newScript.src = threeScriptPath;
+    document.body.appendChild(newScript);
+
   } else {
-    // Hide the DNA container on non-home pages
     if (threeContainer) {
       threeContainer.style.display = "none";
     }
