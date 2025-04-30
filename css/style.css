@@ -175,10 +175,6 @@ h6 {
   width: 100%;
 }
 
-.nav-menu a.active {
-  font-weight: bold;
-}
-
 /* dropdown */
 .nav-menu li.dropdown {
   position: relative;
