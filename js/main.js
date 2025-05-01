@@ -46,27 +46,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const page = href || "index";
       if (location.hostname === "127.0.0.1" || location.hostname === "localhost") {
-        // 本地开发：使用 .html 后缀
         history.pushState(null, "", `${page}.html`);
       } else {
-        // 部署后：使用简洁路径（无.html）
-        history.pushState(null, "", `/${page}`);
+        history.pushState(null, "", page === "index" ? "/" : `/${page}`);
       }
-      
-      history.pushState(null, "", `./${page}`);
       loadPage(page);
     });
   });
 
-  // Logo click to navigate to home page
-  const logoImg = document.getElementById("logo-img");
-  if (logoImg) {
-    logoImg.addEventListener("click", (e) => {
+  // // Logo click to navigate to home page
+  // const logoImg = document.getElementById("logo-img");
+  // if (logoImg) {
+  //   logoImg.addEventListener("click", (e) => {
+  //     e.preventDefault();
+  //     history.pushState(null, "", "/");  // push to /, back to https://www.bmds-lab.com/
+  //     loadPage("index");
+  //   });
+  // }
+
+  document.querySelectorAll(".nav-menu a").forEach(link => {
+    link.addEventListener("click", function (e) {
       e.preventDefault();
-      history.pushState(null, "", "/test/");  // push to /, back to https://www.bmds-lab.com/
-      loadPage("index");
+      const href = link.getAttribute("href"); // already like "about.html"
+      history.pushState(null, "", href);      // update address bar
+      loadPage(href);                         // pass raw filename
     });
-  }  
+  });  
 
   // Update footer year dynamically
   const yearSpan = document.getElementById("footer-year");
@@ -89,15 +94,79 @@ window.addEventListener("popstate", () => {
 let currentPage = "";
 
 // Load the requested page dynamically
-function loadPage(page) {
-  if (currentPage === page) {
-    return;// Prevent reloading the same page
-  }
-  currentPage = page;
+// function loadPage(page) {
+//   // if (currentPage === page) {
+//   //   return;// Prevent reloading the same page
+//   // }
+//   // currentPage = page;
 
-  fetch(`${page}.html`)
+//   // fetch(`${page}.html`)
+//   fetch(page)
+//     .then(res => {
+//       if (!res.ok) throw new Error(`Page not found: ${page}`);
+//       return res.text();
+//     })
+//     .then(html => {
+//       const parser = new DOMParser();
+//       const doc = parser.parseFromString(html, "text/html");
+
+//       const mainContent = doc.querySelector("main");
+//       if (mainContent) {
+//         document.getElementById("content").innerHTML = mainContent.innerHTML;
+//       } else {
+//         document.getElementById("content").innerHTML = html;
+//       }
+
+//       // Update the body class based on the current page
+//       // This controls background and nav style (homepage vs other pages)
+//       if (page === "index") {
+//         document.body.classList.add("homepage"); // Add homepage class on home page
+//       } else {
+//         document.body.classList.remove("homepage"); // Remove homepage class on other pages
+//       }
+
+//       // Update active nav link
+//       setActiveNav(page);
+
+//       // Load additional page-specific content
+//       if (page === "students") loadStudentsPage();
+//       if (page === "publications") loadPublicationsPage();
+//       if (page === "contact") generateEmail();
+
+//       // Close burger menu if it's open
+//       const burger = document.getElementById("burger-toggle");
+//       const navMenu = document.querySelector(".nav-menu");
+//       if (burger?.classList.contains("active")) {
+//         burger.classList.remove("active");
+//         navMenu?.classList.remove("active");
+//       }
+
+//       // Handle optional page-specific features
+//       handleThreeJS(page);
+//       handleFooter(page);
+
+//       // Force reflow animation
+//       document.body.style.display = 'none';
+//       document.body.offsetHeight;
+//       document.body.style.display = 'flex';
+//     })
+//     .catch(error => {
+//       console.error("Failed to load", page, error);
+
+//       // Only fallback to about ONCE to avoid infinite loops
+//       if (page !== "about") {
+//         loadPage("about");
+//       } else {
+//         document.getElementById("content").innerHTML = "<p>Failed to load page.</p>";
+//       }
+//     });
+// }
+function loadPage(page) {
+  const htmlFile = page.endsWith(".html") ? page : `${page}.html`;
+
+  fetch(htmlFile)
     .then(res => {
-      if (!res.ok) throw new Error(`Page not found: ${page}`);
+      if (!res.ok) throw new Error(`Page not found: ${htmlFile}`);
       return res.text();
     })
     .then(html => {
@@ -111,48 +180,50 @@ function loadPage(page) {
         document.getElementById("content").innerHTML = html;
       }
 
-      // Update the body class based on the current page
-      // This controls background and nav style (homepage vs other pages)
-      if (page === "index") {
-        document.body.classList.add("homepage"); // Add homepage class on home page
+      const cleanPage = page.replace(".html", "");
+
+      // background class
+      if (cleanPage === "index") {
+        document.body.classList.add("homepage");
       } else {
-        document.body.classList.remove("homepage"); // Remove homepage class on other pages
+        document.body.classList.remove("homepage");
       }
 
-      // Update active nav link
-      setActiveNav(page);
+      // active nav
+      setActiveNav(cleanPage);
 
-      // Load additional page-specific content
-      if (page === "students") loadStudentsPage();
-      if (page === "publications") loadPublicationsPage();
-      if (page === "contact") generateEmail();
+      // logic by page
+      if (cleanPage === "students") loadStudentsPage();
+      if (cleanPage === "publications") loadPublicationsPage();
+      if (cleanPage === "contact") generateEmail();
 
-      // Close burger menu if it's open
-      const burger = document.getElementById("burger-toggle");
-      const navMenu = document.querySelector(".nav-menu");
-      if (burger?.classList.contains("active")) {
-        burger.classList.remove("active");
-        navMenu?.classList.remove("active");
-      }
-
-      // Handle optional page-specific features
-      handleThreeJS(page);
-      handleFooter(page);
-
-      // Force reflow animation
-      document.body.style.display = 'none';
-      document.body.offsetHeight;
-      document.body.style.display = 'flex';
+      handleThreeJS(cleanPage);
+      handleFooter(cleanPage);
     })
     .catch(error => {
-      console.error(error);
-      loadPage("about"); // fallback page if load fails
+      console.error("Failed to load:", htmlFile, error);
+      document.getElementById("content").innerHTML = `
+        <section style="padding: 80px 20px;">
+          <h2 style="color: darkred">Page Load Failed</h2>
+          <p>Could not load <strong>${htmlFile}</strong>. Please check if the file exists.</p>
+        </section>
+      `;
     });
 }
 
 // Set the active navigation link based on current page
 function setActiveNav(page) {
   const cleanPage = page.replace(".html", "");
+
+  if (cleanPage === "students") loadStudentsPage();
+  if (cleanPage === "publications") loadPublicationsPage();
+  if (cleanPage === "contact") generateEmail();
+
+  if (cleanPage === "index") {
+    document.body.classList.add("homepage");
+  } else {
+    document.body.classList.remove("homepage");
+  }
 
   document.querySelectorAll(".nav-menu a").forEach(link => link.classList.remove("active"));
   document.getElementById("team-link")?.classList.remove("active");
