@@ -45,6 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const page = href || "index";
+      if (location.hostname === "127.0.0.1" || location.hostname === "localhost") {
+        // 本地开发：使用 .html 后缀
+        history.pushState(null, "", `${page}.html`);
+      } else {
+        // 部署后：使用简洁路径（无.html）
+        history.pushState(null, "", `/${page}`);
+      }
+      
       history.pushState(null, "", `./${page}`);
       loadPage(page);
     });
@@ -55,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (logoImg) {
     logoImg.addEventListener("click", (e) => {
       e.preventDefault();
-      history.pushState(null, "", "/");  // push to /, back to https://www.bmds-lab.com/
+      history.pushState(null, "", "/test/");  // push to /, back to https://www.bmds-lab.com/
       loadPage("index");
     });
   }  
@@ -67,13 +75,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Load the initial page on start up
-  const page = window.location.pathname.split("/").pop().replace(".html", "") || "index";
+  const page = getCurrentPage();
   loadPage(page);
 });
 
 // Handle browser back/forward button navigation (<- and ->, next to refresh page)
 window.addEventListener("popstate", () => {
-  const page = window.location.pathname.split("/").pop().replace(".html", "") || "index";
+  const page = getCurrentPage();
   loadPage(page);
 });
 
@@ -417,3 +425,10 @@ function handleFooter(page) {
     footer.style.display = "block"; // Show footer on other pages
   }
 }
+function getCurrentPage() {
+  const pathname = window.location.pathname;
+  const filename = pathname.split("/").pop();
+  if (!filename || filename === "" || filename === "index.html") return "index";
+  return filename.replace(".html", "");
+}
+
