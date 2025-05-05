@@ -54,6 +54,7 @@ body.homepage #nav {
 
 html {
   scroll-behavior: smooth;
+  overflow-y: scroll;
 }
 
 a {
@@ -651,9 +652,11 @@ body {
   /* total height - menu height */
   z-index: -1;
   pointer-events: none;
-  /* Fade in effect */
-  opacity: 0; 
-  transition: opacity 0.4s ease-in-out;
+}
+.loading {
+  color: #888;
+  font-style: italic;
+  padding: 20px;
 }
 
 #content {
@@ -728,6 +731,10 @@ main#content h2 {
 body {
   scrollbar-width: thin;
   scrollbar-color: #003366 hsla(254, 16%, 85%, 1);
+}
+
+main#content h2{
+  color: #555;
 }
 
 /* footer */
@@ -847,12 +854,9 @@ body {
     font-size: 12px;
     padding: 10px 0;
   }
-
-  .section-title h2 {
-    margin-top: 50px;
-  }
   
   .section-title h1,
+  .section-title h2
   .section-title h3,
   .section-title h4,
   .section-title h5,

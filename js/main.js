@@ -1,5 +1,5 @@
 // Global variable for Three.js animation script path
-const threeScriptPath = 'assets/index-DYQf9W6Q.js';
+const threeScriptPath = 'assets/index-CtlcCLg-.js';
 
 // Wait for the document to fully load
 document.addEventListener("DOMContentLoaded", () => {
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
       history.pushState(null, "", href);      // update address bar
       loadPage(href);                         // pass raw filename
     });
-  });  
+  });
 
   // Update footer year dynamically
   const yearSpan = document.getElementById("footer-year");
@@ -191,6 +191,12 @@ function loadPage(page) {
 
       // active nav
       setActiveNav(cleanPage);
+// Hide filters by default
+const filterArea = document.getElementById("studentFilters");
+if (filterArea) filterArea.style.display = "none";
+
+// Load specific page logic
+if (cleanPage === "students") loadStudentsPage();
 
       // logic by page
       if (cleanPage === "students") loadStudentsPage();
@@ -214,10 +220,6 @@ function loadPage(page) {
 // Set the active navigation link based on current page
 function setActiveNav(page) {
   const cleanPage = page.replace(".html", "");
-
-  if (cleanPage === "students") loadStudentsPage();
-  if (cleanPage === "publications") loadPublicationsPage();
-  if (cleanPage === "contact") generateEmail();
 
   if (cleanPage === "index") {
     document.body.classList.add("homepage");
@@ -253,75 +255,92 @@ function generateEmail() {
   }
 }
 
-// Load and render the Students page
 function loadStudentsPage() {
+  const row = document.querySelector(".team .row");
+  row.innerHTML = "";
+
+  const filters = document.getElementById("studentFilters");
+  if (filters) filters.style.display = "block";
+
+  const loading = document.createElement("p");
+  loading.textContent = "Loading students...";
+  loading.className = "loading-text";
+  loading.style.fontStyle = "italic";
+  loading.style.color = "#777";
+  row.appendChild(loading);
+
+  // 先读取本地保存的 filter 状态
+  let currentFilter = localStorage.getItem("studentFilter") || "Current";
+
   fetch("students.json")
     .then(res => res.json())
     .then(data => {
-      const row = document.querySelector(".team .row");
-      row.innerHTML = "";
+      setTimeout(() => {
+        loading.remove();
 
-      data.students.forEach(student => {
-        const card = document.createElement("div");
-        card.className = "col-lg-6 mt-4";
-
-        const imgSrc = student.image?.trim() || "./img/team/default.png";
-        card.innerHTML = `
-          <div class="member d-flex align-items-start" data-role="${student.status} ${student.degree}">
-            <div class="teampic">
-              <img src="${imgSrc}" class="img-fluid" alt="${student.name}">
+        // 渲染卡片
+        data.students.forEach(student => {
+          const card = document.createElement("div");
+          card.className = "col-lg-6 mt-4";
+          const imgSrc = student.image?.trim() || "./img/team/default.png";
+          card.innerHTML = `
+            <div class="member d-flex align-items-start" data-role="${student.status} ${student.degree}">
+              <div class="teampic">
+                <img src="${imgSrc}" class="img-fluid" alt="${student.name}">
+              </div>
+              <div class="member-info">
+                <h4 class="student-name">${student.linkedin ? `<a href="${student.linkedin}" target="_blank">${student.name}</a>` : student.name}</h4>
+                <span>${student.degree}</span>
+                <p>${student.description || ""}</p>
+              </div>
             </div>
-            <div class="member-info">
-              <h4 class="student-name">${student.linkedin ? `<a href="${student.linkedin}" target="_blank">${student.name}</a>` : student.name}</h4>
-              <span>${student.degree}</span>
-              <p>${student.description || ""}</p>
-            </div>
-          </div>
-        `;
-        row.appendChild(card);
-      });
-
-      const filterButtons = document.querySelectorAll(".role-filters .filter-button");
-      const searchInput = document.getElementById("searchBox");
-      const clearBtn = document.getElementById("clearSearch");
-      const members = document.querySelectorAll(".member");
-
-      let currentFilter = "Current";
-
-      // Filter students by role and search input
-      function filterStudents() {
-        const keyword = searchInput.value.trim().toLowerCase();
-
-        members.forEach(member => {
-          const [status, degree] = (member.getAttribute("data-role") || "").split(" ");
-          const nameElement = member.querySelector(".student-name");
-          const nameText = nameElement.textContent.trim().toLowerCase();
-
-          const roleMatch = currentFilter === "All" || (currentFilter === "Alumni" && status === "Alumni") || (status === "Current" && (degree === currentFilter || currentFilter === "Current"));
-          const searchMatch = keyword === "" || nameText.includes(keyword);
-
-          member.parentElement.style.display = roleMatch && searchMatch ? "block" : "none";
-
-          // Highlight matched text
-          if (searchMatch && keyword.length > 0) {
-            highlightElementText(nameElement, keyword, true);
-          } else {
-            const clean = nameElement.innerHTML.replace(/<\/?mark>/gi, "");
-            nameElement.innerHTML = clean;
-          }
+          `;
+          row.appendChild(card);
         });
-      }
 
-      setupFilterButtons(filterButtons, () => {
-        currentFilter = document.querySelector(".role-filters .filter-button.active")?.getAttribute("data-filter") || "Current";
+        const filterButtons = document.querySelectorAll(".role-filters .filter-button");
+        const searchInput = document.getElementById("searchBox");
+        const clearBtn = document.getElementById("clearSearch");
+        const members = document.querySelectorAll(".member");
+
+        function filterStudents() {
+          const keyword = searchInput.value.trim().toLowerCase();
+          members.forEach(member => {
+            const [status, degree] = (member.getAttribute("data-role") || "").split(" ");
+            const nameElement = member.querySelector(".student-name");
+            const nameText = nameElement.textContent.trim().toLowerCase();
+
+            const roleMatch = currentFilter === "All" || (currentFilter === "Alumni" && status === "Alumni") || (status === "Current" && (degree === currentFilter || currentFilter === "Current"));
+            const searchMatch = keyword === "" || nameText.includes(keyword);
+
+            member.parentElement.style.display = roleMatch && searchMatch ? "block" : "none";
+
+            if (searchMatch && keyword.length > 0) {
+              highlightElementText(nameElement, keyword, true);
+            } else {
+              nameElement.innerHTML = nameElement.innerHTML.replace(/<\/?mark>/gi, "");
+            }
+          });
+        }
+
+        // ✅ 手动激活对应按钮，而不是触发 click（避免动画跳动）
+        filterButtons.forEach(btn => {
+          const isTarget = btn.getAttribute("data-filter") === currentFilter;
+          btn.classList.toggle("active", isTarget);
+        });
+
+        setupFilterButtons(filterButtons, () => {
+          currentFilter = document.querySelector(".role-filters .filter-button.active")?.getAttribute("data-filter") || "Current";
+          localStorage.setItem("studentFilter", currentFilter);
+          filterStudents();
+        });
+
+        setupSearchClear(searchInput, clearBtn, filterStudents);
         filterStudents();
-      });
-
-      setupSearchClear(searchInput, clearBtn, filterStudents);
-
-      filterStudents();
+      }, 500);
     });
 }
+
 
 // Load and render the Publications page
 function loadPublicationsPage() {
@@ -437,6 +456,10 @@ function setupFilterButtons(buttons, onFilter) {
     btn.addEventListener("click", () => {
       buttons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
+
+      // ✅ 保存当前 filter
+      const selectedFilter = btn.getAttribute("data-filter");
+      localStorage.setItem("studentFilter", selectedFilter);
       onFilter();
     });
   });
@@ -483,6 +506,7 @@ function handleThreeJS(page) {
       threeContainer.style.display = "none";
     }
   }
+
 }
 
 // Show or hide the footer depending on the current page
